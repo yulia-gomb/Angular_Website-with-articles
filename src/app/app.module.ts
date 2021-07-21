@@ -5,14 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { MainPageComponent } from './main-page/main-page.component';
+import { MainPageComponent } from './page-main/main-page.component';
 import { TagsComponent } from './tags/tags.component';
+import { RouterModule, Routes } from "@angular/router";
 
 import "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
 import "firebase/database";
 import firebase from "firebase";
+import { PageLogInComponent } from './page-log-in/page-log-in.component';
+import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
+import { PageArticleComponent } from './page-article/page-article.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyATt36GJHPvqSKNaTIcdXpU47Xdv0_Ofmg",
@@ -26,17 +30,28 @@ export const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const appRoutes: Routes = [
+  {path: '', component: MainPageComponent},
+  {path: 'log-in', component: PageLogInComponent},
+  {path: 'article', component: PageArticleComponent},
+  {path: 'create-a-post', component: PageCreateAPostComponent}
+]
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     MainPageComponent,
-    TagsComponent
+    TagsComponent,
+    PageLogInComponent,
+    PageCreateAPostComponent,
+    PageArticleComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

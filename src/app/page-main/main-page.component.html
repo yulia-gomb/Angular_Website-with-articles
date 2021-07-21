@@ -23,6 +23,7 @@
 
       <div id="articles">
         <div class="frame"  *ngFor="let item of data">
+          <a routerLink="/article" class="link">
             <img src="../../assets/{{item[1].img}}" />
 
 
@@ -32,6 +33,7 @@
           <div class="articleDescription">
             {{item[1].description}}
           </div>
+          </a>
         </div>
 
       </div>

@@ -1,0 +1,46 @@
+<main class="create-post-page">
+
+  <form id="form" class="form">
+    <div class="wrapper">
+
+      <div class="upload-file__wrapper">
+        <img id="image" />
+        <input
+          type="file"
+          name="files[]"
+          id="upload-file__input_1"
+          class="upload-file__input"
+          accept=".jpg, .jpeg, .png, .gif, .bmp"
+        >
+
+        <label class="upload-file__label" for="upload-file__input_1">
+          <img class="upload-file__icon" src="../../assets/img/icon-plus-blue.png" alt="upload file"/>
+          <span class="upload-file__text">Add Cover</span>
+        </label>
+      </div>
+
+      <h2>Enter the title of your article</h2>
+      <input type="text" placeholder="Enter Title" class="input-enter-title" name="title" id="title">
+      <h2>Enter the subtitle of your article</h2>
+      <input type="text" placeholder="Enter Subtitle" class="input-enter-subtitle" name="subtitles" id="subtitle">
+      <h2>Tell your story...</h2>
+      <textarea name="text" id="text"></textarea>
+
+      <div id="new-block"></div>
+      <button class="button-add-new-block" id="button-add-new-block">Add new block</button>
+
+      <h2>Add tag information</h2>
+      <ul id="alltags">
+        <app-tags></app-tags>
+      </ul>
+      <ul id="activeTags"></ul>
+
+    </div>
+    <div class="post-footer">
+      <button class="button-preview">Preview</button>
+      <button type="submit" class="button-publish">Publish</button>
+
+    </div>
+  </form>
+
+</main>
