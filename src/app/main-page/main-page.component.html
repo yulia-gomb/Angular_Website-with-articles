@@ -21,7 +21,20 @@
 
         <app-tags></app-tags>
 
-      <div id="articles"></div>
+      <div id="articles">
+        <div class="frame"  *ngFor="let item of data">
+            <img src="../../assets/{{item[1].img}}" />
+
+
+          <div class="articleTitle">
+            {{item[1].title}}
+          </div>
+          <div class="articleDescription">
+            {{item[1].description}}
+          </div>
+        </div>
+
+      </div>
     </div>
   </article>
 </main>
