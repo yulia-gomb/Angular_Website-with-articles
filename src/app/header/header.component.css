@@ -1,0 +1,66 @@
+.header{
+  background-color: #2F80ED;
+  height: 80px;
+  box-shadow: 0px 4px 8px rgba(202, 205, 210, 0.35);
+  padding-left: 80px;
+  padding-right: 80px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.avatar{
+  width: 52px;
+  height: 52px;
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  background: url("../../assets/img/avatar.png") round;
+}
+.logo{
+  margin: 5px;
+
+}
+.button-add-post{
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  width: 190px;
+  height: 48px;
+  border-radius: 24px;
+  margin-right: 35px;
+  padding-top: 14px;
+}
+
+.button-add-post a:visited{
+  color: #FFFFFF;
+}
+
+.button-plus-avatar{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+.button-log{
+  background-color: #F2C94C;
+  color: black;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  width: 100px;
+  height: 48px;
+  border-radius: 24px;
+  margin-right: 35px;
+  padding-top: 14px;
+}
+.button-log a:visited{
+  color: black;
+}
+.hidden{
+  display: none;
+}
