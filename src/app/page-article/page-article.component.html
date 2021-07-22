@@ -8,15 +8,19 @@
     <div class="article-main-image" id="article-main-image">
     </div>
     <article class="article">
-      <h1 id="articleTitle"></h1>
-      <div id="subtitles-and-text"></div>
+      <h1 id="articleTitle">{{data.title}}</h1>
+      <div id="subtitles-and-text" *ngFor="let sub of data.subtitles">
+        <h2>{{sub}}</h2>
+        <p></p>
+      </div>
     </article>
     <div class="article-subscription">
-      <p id="articleAuthor"></p>
-      <p id="articleDate"></p>
+      <p id="articleAuthor">{{data.author}}</p>
+      <p id="articleDate">{{data.date}}</p>
     </div>
     <div>
       <ul id="articleTags" class="tags-article">
+        <li class="tag" *ngFor="let tag of data.tags">{{tag}}</li>
       </ul>
     </div>
   </div>

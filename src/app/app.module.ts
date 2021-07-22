@@ -17,6 +17,7 @@ import firebase from "firebase";
 import { PageLogInComponent } from './page-log-in/page-log-in.component';
 import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
 import { PageArticleComponent } from './page-article/page-article.component';
+import { ItemComponent } from "./item.component";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyATt36GJHPvqSKNaTIcdXpU47Xdv0_Ofmg",
@@ -33,7 +34,7 @@ firebase.initializeApp(firebaseConfig);
 const appRoutes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'log-in', component: PageLogInComponent},
-  {path: 'article', component: PageArticleComponent},
+  {path: 'article/:id', component: PageArticleComponent},
   {path: 'create-a-post', component: PageCreateAPostComponent}
 ]
 
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
     TagsComponent,
     PageLogInComponent,
     PageCreateAPostComponent,
-    PageArticleComponent
+    PageArticleComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,

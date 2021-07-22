@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import firebase from "firebase";
 
 
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
