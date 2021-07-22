@@ -23,17 +23,14 @@
 
       <div id="articles">
         <div class="frame"  *ngFor="let item of data">
-          <a [routerLink]="['article', '2']" class="link">
-            <img src="../../assets/{{item[1].img}}" />
-
-
-          <div class="articleTitle">
+          <a [routerLink]="['article',item[0]]" class="link">
+            <img src="../../assets/{{item[1].img}}" alt="article image"/>
+            <div class="articleTitle">
             {{item[1].title}}
-          </div>
-          <div class="articleDescription">
+           </div>
+            <div class="articleDescription">
             {{item[1].description}}
-            {{item[0]}}
-          </div>
+            </div>
           </a>
         </div>
 

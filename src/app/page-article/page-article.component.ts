@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { ActivatedRoute} from '@angular/router';
 import firebase from "firebase";
+import "firebase/database";
 
 @Component({
   selector: 'app-page-article',
@@ -9,26 +10,33 @@ import firebase from "firebase";
 })
 export class PageArticleComponent implements OnInit {
 
-  public href: any;
+  id: number;
   data: any;
+  urlImage: any;
 
-  constructor(private router: Router) { }
+  constructor(private activateRoute: ActivatedRoute) {
+    this.id = activateRoute.snapshot.params['id'];
+    console.log(this.id);
+  }
 
   ngOnInit(): void {
-
-    this.href = this.router.url.split('/')[2];
-    console.log(this.href);
 
     // getting data from Firebase
 
     firebase.database().ref().on('value', (snap) => {
-      this.data = snap.val().articles[this.href];
+      this.data = snap.val().articles[this.id];
       console.log(this.data);
-
-
     })
 
+    //getting url images from firebase
+    var storageRef = firebase.storage().ref();
 
+    storageRef.child(`${this.data.img}`).getDownloadURL().then(url => {
+      this.urlImage = url
+      console.log(url)
+    }).catch(e =>
+      console.log(e)
+    )
 
   }
 

@@ -17,7 +17,7 @@ import firebase from "firebase";
 import { PageLogInComponent } from './page-log-in/page-log-in.component';
 import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
 import { PageArticleComponent } from './page-article/page-article.component';
-import { ItemComponent } from "./item.component";
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyATt36GJHPvqSKNaTIcdXpU47Xdv0_Ofmg",
@@ -47,8 +47,8 @@ const appRoutes: Routes = [
     TagsComponent,
     PageLogInComponent,
     PageCreateAPostComponent,
-    PageArticleComponent,
-    ItemComponent
+    PageArticleComponent
+
   ],
   imports: [
     BrowserModule,
