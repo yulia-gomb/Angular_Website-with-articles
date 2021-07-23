@@ -12,7 +12,9 @@ export class PageArticleComponent implements OnInit {
 
   id: number;
   data: any;
-  urlImage: any;
+  urlImage: string = '';
+  textArray: string[] = [];
+
 
   constructor(private activateRoute: ActivatedRoute) {
     this.id = activateRoute.snapshot.params['id'];
@@ -25,7 +27,10 @@ export class PageArticleComponent implements OnInit {
 
     firebase.database().ref().on('value', (snap) => {
       this.data = snap.val().articles[this.id];
+      this.textArray = this.data.text;
+
       console.log(this.data);
+      console.log(this.textArray);
     })
 
     //getting url images from firebase
@@ -33,7 +38,7 @@ export class PageArticleComponent implements OnInit {
 
     storageRef.child(`${this.data.img}`).getDownloadURL().then(url => {
       this.urlImage = url
-      console.log(url)
+
     }).catch(e =>
       console.log(e)
     )
