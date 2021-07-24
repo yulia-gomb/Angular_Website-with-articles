@@ -18,6 +18,9 @@ import { PageLogInComponent } from './page-log-in/page-log-in.component';
 import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
 import { PageArticleComponent } from './page-article/page-article.component';
 import { NewArticleBlockComponent } from './new-article-block/new-article-block.component';
+import { AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
 
 
 export const firebaseConfig = {
@@ -55,7 +58,9 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

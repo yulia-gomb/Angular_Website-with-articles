@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "leverx-745ad": {
+      "hosting": {
+        "leverx": [
+          "leverx-745ad"
+        ]
+      }
+    }
+  }
+}

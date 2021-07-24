@@ -12,7 +12,6 @@ export class PageArticleComponent implements OnInit {
 
   id: number;
   data: any;
-  urlImage: string = '';
   textArray: string[] = [];
 
 
@@ -29,16 +28,6 @@ export class PageArticleComponent implements OnInit {
       this.textArray = this.data.text;
 
     })
-
-    //getting url images from firebase
-    var storageRef = firebase.storage().ref();
-
-    storageRef.child(`${this.data.img}`).getDownloadURL().then(url => {
-      this.urlImage = url
-
-    }).catch(e =>
-      console.log(e)
-    )
 
   }
 
