@@ -20,7 +20,7 @@
       <div id="articles">
         <div class="frame"  *ngFor="let item of data, let i = index">
           <a [routerLink]="['article',item[0]]" class="link">
-            <img src="{{i}}" alt="article image"/>
+            <img src="{{item[1].img}}" alt="article image" class="articleImage"/>
             <div class="articleTitle">
             {{item[1].title}}
            </div>
