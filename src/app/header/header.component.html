@@ -5,10 +5,12 @@
     </a>
   </div>
   <div class="button-plus-avatar">
-    <a routerLink="/create-a-post" class="button-add-post" id="button-create-post">Create a Post</a>
-    <a routerLink="/log-in" class="button-log" id="button-log-in">
+    <a routerLink="/create-a-post" class="button-add-post" *ngIf="showButtonCreateAPost">
+      Create a Post
+    </a>
+    <a routerLink="/log-in" class="button-log in" *ngIf="showButtonSignIn">
       Sign In</a>
-    <a href="#" class="button-log" id="button-log-out">Log out</a>
-    <div class="avatar" id="avatar"></div>
+    <button class="button-log out" (click)="logOut()" *ngIf="showButtonLogOut">Log out</button>
+    <img src="{{avatarImg}}" class="avatar" *ngIf="showAvatar" alt="avatar" />
   </div>
 </header>

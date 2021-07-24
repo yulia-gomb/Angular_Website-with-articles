@@ -17,7 +17,7 @@
   height: 52px;
   border: 1px solid #FFFFFF;
   border-radius: 50%;
-  background: url("../../assets/img/avatar.png") round;
+
 }
 .logo{
   margin: 5px;
@@ -50,17 +50,23 @@
   background-color: #F2C94C;
   color: black;
   font-weight: 700;
+  font-size: 15px;
   text-align: center;
   letter-spacing: 0.05em;
   width: 100px;
   height: 48px;
   border-radius: 24px;
   margin-right: 35px;
-  padding-top: 14px;
-}
+  }
 .button-log a:visited{
   color: black;
 }
+.in{
+  padding-top: 16px;
+}
+
+
+
 .hidden{
   display: none;
 }

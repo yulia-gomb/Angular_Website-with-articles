@@ -2,11 +2,11 @@
   <div class="wrapper">
     <h1>Welcome to course</h1>
     <form>
-      <button type="button" (click)="logIn()" id="sign-in-google">
+      <button type="button" (click)="logIn()" id="sign-in-google" [disabled]="buttonAble">
         Sign In with Google
       </button>
       <div class="agree-area">
-        <input type="checkbox" id="google-terms" >
+        <input type="checkbox" id="google-terms" (click)="checkStatus()">
         <label for="google-terms">
           You agree to our Terms of Use and Privacy Policy
         </label>
