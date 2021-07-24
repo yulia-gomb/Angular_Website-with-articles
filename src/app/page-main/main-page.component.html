@@ -4,11 +4,7 @@
       <div class="wrapper">
         <h2>Free courses from</h2>
         <h1>LEVERX GROUP</h1>
-        <p>The profession of a programmer is one of the most demanded
-          in the IT field today. Programming training at LeverX Group
-          is an excellent opportunity to gain practical knowledge
-          in the most relevant areas in this area and build a successful
-          career in our company.</p>
+        <p>The profession of a programmer is one of the most demanded in the IT field today. Programming training at LeverX Group is an excellent opportunity to gain practical knowledge in the most relevant areas in this area and build a successful career in our company.</p>
         <button>Start Now</button>
       </div>
     </div>
@@ -22,9 +18,9 @@
         <app-tags></app-tags>
 
       <div id="articles">
-        <div class="frame"  *ngFor="let item of data">
+        <div class="frame"  *ngFor="let item of data, let i = index">
           <a [routerLink]="['article',item[0]]" class="link">
-            <img src="../../assets/{{item[1].img}}" alt="article image"/>
+            <img src="{{i}}" alt="article image"/>
             <div class="articleTitle">
             {{item[1].title}}
            </div>

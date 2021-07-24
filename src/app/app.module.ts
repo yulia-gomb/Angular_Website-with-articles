@@ -17,6 +17,7 @@ import firebase from "firebase";
 import { PageLogInComponent } from './page-log-in/page-log-in.component';
 import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
 import { PageArticleComponent } from './page-article/page-article.component';
+import { NewArticleBlockComponent } from './new-article-block/new-article-block.component';
 
 
 export const firebaseConfig = {
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     TagsComponent,
     PageLogInComponent,
     PageCreateAPostComponent,
-    PageArticleComponent
+    PageArticleComponent,
+    NewArticleBlockComponent
 
   ],
   imports: [

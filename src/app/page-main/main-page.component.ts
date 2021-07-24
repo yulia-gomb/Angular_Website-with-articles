@@ -9,7 +9,7 @@ import firebase from "firebase";
 })
 export class MainPageComponent implements OnInit {
   data: any;
-  urlImage: any;
+  urlImage: string[] = [];
 
 
   constructor() { }
@@ -21,17 +21,26 @@ export class MainPageComponent implements OnInit {
     firebase.database().ref().on('value', (snap) => {
       this.data = Object.entries(snap.val().articles);
       console.log(this.data);
+      //getting url images from firebase
+      this.data.forEach((item: any) => {
+
+        var storageRef = firebase.storage().ref();
+
+        storageRef.child(`${item[1].img}`).getDownloadURL().then(url => {
+          this.urlImage = url
+          /*this.urlImage = this.urlImage.push(url)*/
+          console.log(this.urlImage)
+
+
+        }).catch(e =>
+          console.log(e)
+        )
+      })
+
+
     })
 
-    //getting url images from firebase
-    var storageRef = firebase.storage().ref();
 
-    storageRef.child(`${this.data.img}`).getDownloadURL().then(url => {
-       this.urlImage = url
-
-    }).catch(e =>
-      console.log(e)
-    )
 
 
 

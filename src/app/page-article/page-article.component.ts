@@ -18,7 +18,6 @@ export class PageArticleComponent implements OnInit {
 
   constructor(private activateRoute: ActivatedRoute) {
     this.id = activateRoute.snapshot.params['id'];
-    console.log(this.id);
   }
 
   ngOnInit(): void {
@@ -29,8 +28,6 @@ export class PageArticleComponent implements OnInit {
       this.data = snap.val().articles[this.id];
       this.textArray = this.data.text;
 
-      console.log(this.data);
-      console.log(this.textArray);
     })
 
     //getting url images from firebase

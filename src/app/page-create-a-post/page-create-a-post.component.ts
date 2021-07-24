@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageCreateAPostComponent implements OnInit {
 
+  public items: any = ['']
+
+  public addNewBlock(e: Event) {
+    e.preventDefault();
+    console.log(e)
+    this.items = [...this.items, this.items.length]
+  }
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }
