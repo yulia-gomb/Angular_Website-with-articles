@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
       this.showButtonLogOut = false;
       this.showAvatar = false;
 
+
     }).catch(function (err) {
       console.log("error")
       console.log(err)
