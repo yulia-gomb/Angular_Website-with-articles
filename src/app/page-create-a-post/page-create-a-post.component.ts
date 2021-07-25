@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
+
 @Component({
   selector: 'app-page-create-a-post',
   templateUrl: './page-create-a-post.component.html',

@@ -23,7 +23,7 @@ import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-
+import { ExitGuard }   from './exit.guard';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyATt36GJHPvqSKNaTIcdXpU47Xdv0_Ofmg",
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'log-in', component: PageLogInComponent},
   {path: 'article/:id', component: PageArticleComponent},
-  {path: 'create-a-post', component: PageCreateAPostComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }}
+  {path: 'create-a-post', component: PageCreateAPostComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }, canDeactivate: [ExitGuard]}
 ]
 
 @NgModule({
@@ -67,7 +67,7 @@ const appRoutes: Routes = [
     AngularFireStorageModule,
     AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [ExitGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
