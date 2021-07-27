@@ -163,6 +163,11 @@ body{
   align-items: flex-start;
 }
 
+.plus{
+  background: url("./assets/img/icon-plus-black.png") no-repeat 20px center #FFFFFF;
+  padding-left: 50px;
+}
+
 /* tags style finish */
 
 

@@ -21,6 +21,10 @@ input, textarea{
   padding: 12px 32px;
   border-radius: 4px;
 }
+.input-enter-subtitle{
+  font-weight: bold;
+  font-size: 24px;
+}
 /* upload-file style start*/
 .upload-file__wrapper{
   width: 100%;

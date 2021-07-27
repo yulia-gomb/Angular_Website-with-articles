@@ -1,28 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from "@angular/router";
+import { FormsModule} from "@angular/forms";
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Common/header/header.component';
 import { FooterComponent } from './Common/footer/footer.component';
 import { MainPageComponent } from './page-main/main-page.component';
-import { RouterModule, Routes } from "@angular/router";
+import { PageLogInComponent } from './page-log-in/page-log-in.component';
+import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
+import { PageArticleComponent } from './page-article/page-article.component';
+
+
+import { ExitGuard }   from './Guards/exit.guard';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import {environment} from "../environments/environment";
 
 import "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
 import "firebase/database";
 import firebase from "firebase";
-import { PageLogInComponent } from './page-log-in/page-log-in.component';
-import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
-import { PageArticleComponent } from './page-article/page-article.component';
-import { NewArticleBlockComponent } from './new-article-block/new-article-block.component';
 import { AngularFireStorageModule} from "@angular/fire/storage";
 import {AngularFireModule} from "@angular/fire";
-import {environment} from "../environments/environment";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
-import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { ExitGuard }   from './Guards/exit.guard';
+
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyATt36GJHPvqSKNaTIcdXpU47Xdv0_Ofmg",
@@ -53,9 +57,7 @@ const appRoutes: Routes = [
     MainPageComponent,
     PageLogInComponent,
     PageCreateAPostComponent,
-    PageArticleComponent,
-    NewArticleBlockComponent
-
+    PageArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule
   ],
   providers: [ExitGuard],
   bootstrap: [AppComponent]

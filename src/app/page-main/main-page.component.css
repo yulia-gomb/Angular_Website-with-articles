@@ -77,7 +77,7 @@ article{
   font-size: 18px;
   letter-spacing: 0.0075em;
   background: url("../../assets/img/search-icon.png") no-repeat 25px center #FFFFFF;
-  box-shadow: 0px -6px 8px rgba(234, 237, 242, 0.5), 0px 6px 8px rgba(234, 237, 242, 0.5);
+  box-shadow: 0 -6px 8px rgba(234, 237, 242, 0.5), 0 6px 8px rgba(234, 237, 242, 0.5);
   border-radius: 40px;
   width: 920px;
   height: 60px;
@@ -104,17 +104,17 @@ article{
   width: 270px;
   height: 352px;
   background: #FFFFFF;
-  box-shadow: 0px 6px 8px rgba(234, 237, 242, 0.5);
+  box-shadow: 0 6px 8px rgba(234, 237, 242, 0.5);
   border-radius: 15px;
   margin: 0 12px 24px 12px;
 
 }
 .frame:hover{
-  box-shadow: 0px 12px 24px rgba(188, 201, 220, 0.4);
+  box-shadow: 0 12px 24px rgba(188, 201, 220, 0.4);
   cursor: pointer;
 }
 .frame:active{
-  box-shadow: 0px 12px 24px rgba(227, 232, 240, 0.5)
+  box-shadow: 0 12px 24px rgba(227, 232, 240, 0.5)
 }
 .frame a:visited{
   color: #333333;

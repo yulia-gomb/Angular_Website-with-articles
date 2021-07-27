@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm} from "@angular/forms";
 import { FirebaseService} from "../Services/firebase.service";
 
 
@@ -41,6 +42,12 @@ export class PageCreateAPostComponent implements OnInit {
 
       this.firebaseService.getTags().subscribe(tags =>
         this.tags = tags)
+  }
+
+  //submit form
+  submit(myForm: NgForm){
+
+    console.log(myForm);
   }
 
 
