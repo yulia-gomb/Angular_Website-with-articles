@@ -117,7 +117,7 @@ textarea{
   color: #2F80ED;
   padding-left: 29px;
 }
-#activeTags{
+.activeTags{
   margin-top: 32px;
   font-weight: 600;
   font-size: 18px;

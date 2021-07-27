@@ -4,7 +4,7 @@
     <div class="wrapper">
 
       <div class="upload-file__wrapper">
-        <img id="image" />
+        <img id="image"  alt="image"/>
         <input
           type="file"
           name="files[]"
@@ -24,20 +24,22 @@
 
       <app-new-article-block *ngFor="let item of items"></app-new-article-block>
 
-      <div id="new-block"></div>
       <button (click)="addNewBlock($event)" class="button-add-new-block" id="button-add-new-block">Add new block</button>
 
       <h2>Add tag information</h2>
-      <ul id="alltags">
-        <app-tags></app-tags>
+      <ul class="tags">
+        <li class="tag" *ngFor="let item of tags" (click)="addTags($event)">
+          {{item}}
+        </li>
       </ul>
-      <ul id="activeTags"></ul>
+      <ul class="activeTags">
+        <li class="tag active" *ngFor="let tag of tagsForForm">{{tag}}</li>
+      </ul>
 
     </div>
     <div class="post-footer">
       <button class="button-preview">Preview</button>
       <button type="submit" class="button-publish">Publish</button>
-
     </div>
   </form>
 

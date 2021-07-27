@@ -9,20 +9,22 @@
       <img src="{{data.img}}" class="article-main-image" alt="Article image"/>
 
     <article class="article">
-      <h1 id="articleTitle">{{data.title}}</h1>
-      <div id="subtitles-and-text" *ngFor="let subtitle of data.subtitles, let i = index">
+      <h1>{{data.title}}</h1>
+      <div *ngFor="let subtitle of data.subtitles, let i = index">
         <h2>{{subtitle}}</h2>
         <p>{{textArray[i]}}</p>
       </div>
     </article>
     <div class="article-subscription">
-      <p id="articleAuthor">{{data.author}}</p>
-      <p id="articleDate">{{data.date}}</p>
+      <p>{{data.author}}</p>
+      <p>{{data.date}}</p>
     </div>
     <div>
-      <ul id="articleTags" class="tags-article">
+      <ul class="tags-article">
         <li class="tag" *ngFor="let tag of data.tags">{{tag}}</li>
       </ul>
     </div>
   </div>
 </main>
+
+<app-footer></app-footer>

@@ -31,13 +31,13 @@
   transform: scale(1.2);
 }
 .fb {
-  background-image: url("../../assets/img/icon-fb.png");
+  background-image: url("../../../assets/img/icon-fb.png");
 }
 .tg {
-  background-image: url("../../assets/img/icon-tele.png");
+  background-image: url("../../../assets/img/icon-tele.png");
 }
 .inst {
-  background-image: url("../../assets/img/icon-inst.png");
+  background-image: url("../../../assets/img/icon-inst.png");
 }
 .copyright{
   color: #FFFFFF;

@@ -139,6 +139,31 @@ body{
   margin: 0 auto;
 
 }
+.tag{
+  text-align: center;
+  letter-spacing: 0.0168em;
+  padding: 8px 24px;
+  background: #FFFFFF;
+  box-shadow: 0px 6px 8px rgba(234, 237, 242, 0.5);
+  border-radius: 40px;
+  width: max-content;
+  margin: 6px 12px 6px 0;
+  cursor: pointer;
+}
+.active{
+  color: #FFFFFF;
+  background: url("./assets/img/icon-active.png") no-repeat 10% center #2F80ED;
+  padding-left: 4%;
+}
+
+/* tags style start */
+.tags, .alltags{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* tags style finish */
 
 
 

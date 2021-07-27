@@ -15,8 +15,7 @@ export class PageLogInComponent implements OnInit {
       }
       //authentication of user
         logIn(){
-          console.log('login')
-          this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result : any) {
+            this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result : any) {
             localStorage.setItem('authorized', 'true');
             localStorage.setItem('avatar', result.additionalUserInfo.profile.picture);
             localStorage.setItem('author', result.additionalUserInfo.profile.name);

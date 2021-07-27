@@ -1,29 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { FirebaseService} from "../Services/firebase.service";
 
 
 @Component({
   selector: 'app-page-create-a-post',
   templateUrl: './page-create-a-post.component.html',
-  styleUrls: ['./page-create-a-post.component.css']
+  styleUrls: ['./page-create-a-post.component.css'],
+  providers: [FirebaseService]
 })
 export class PageCreateAPostComponent implements OnInit {
 
-  public items: any = ['']
+  public items: any[] = [''];
 
+  constructor(private firebaseService: FirebaseService) {}
 
-  public addNewBlock(e: Event) {
-    e.preventDefault();
-    console.log(e)
-    this.items = [...this.items, this.items.length]
-  }
+    //button @Add new block"
+    public addNewBlock(e: Event) {
+      e.preventDefault();
+      console.log(e)
+      this.items = [...this.items, this.items.length]
+    }
 
-  /*constructor(private activateRoute: ActivatedRoute) {
-    this.url = activateRoute.snapshot.url.join('');
-    console.log(this.url)
-  }*/
+    //function of adding tags to article
 
-  ngOnInit(): void {
+    tags!: string[];
+    tagsForForm: string[] = [];
+
+    addTags(e: any) {
+      let newTag = e.target.innerHTML;
+      if(!this.tagsForForm.includes(newTag)){
+        this.tagsForForm.push(newTag)
+      } else {
+        this.tagsForForm = this.tagsForForm.filter(item => item !== newTag);
+      }
+    }
+
+    ngOnInit(): void {
+
+      // getting data from Firebase
+
+      this.firebaseService.getTags().subscribe(tags =>
+        this.tags = tags)
   }
 
 

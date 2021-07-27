@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import firebase from "firebase";
-import { FirebaseService} from "../firebase.service";
-import {AngularFireDatabase} from "@angular/fire/database";
+import { FirebaseService} from "../Services/firebase.service";
+
 
 
 @Component({
@@ -13,27 +12,33 @@ import {AngularFireDatabase} from "@angular/fire/database";
 export class MainPageComponent implements OnInit {
 
   data: any;
-  tags: any;
+  tags: string[] | undefined;
 
-  constructor() {
+  constructor(private firebaseService: FirebaseService) {}
 
+  //function of filter articles by tags
+
+  tagsForFilter: string[] = [];
+
+  filterByTags(e: any) {
+    let newTag = e.target.innerHTML;
+    if(!this.tagsForFilter.includes(newTag)){
+      this.tagsForFilter.push(newTag)
+    } else {
+      this.tagsForFilter = this.tagsForFilter.filter(item => item !== newTag);
+    }
+    console.log(this.tagsForFilter)
   }
 
   ngOnInit(): void {
 
     // getting data from Firebase
 
-    firebase.database().ref().on('value', (snap) => {
-      this.data = Object.entries(snap.val().articles);
-      console.log(this.data);
-       })
+    this.firebaseService.getArticles().subscribe( data =>
+    this.data = data)
 
-    /*/!*this.data = this.firebaseService.getArticles()*!/
-    console.log(this.data)
-
-    this.tags = this.firebaseService.getTags()
-    console.log(this.tags)
-*/
+    this.firebaseService.getTags().subscribe(tags =>
+      this.tags = tags)
 
   }
 

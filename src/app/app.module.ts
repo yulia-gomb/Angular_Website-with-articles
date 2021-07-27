@@ -3,10 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './Common/header/header.component';
+import { FooterComponent } from './Common/footer/footer.component';
 import { MainPageComponent } from './page-main/main-page.component';
-import { TagsComponent } from './tags/tags.component';
 import { RouterModule, Routes } from "@angular/router";
 
 import "firebase/app";
@@ -23,7 +22,7 @@ import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { ExitGuard }   from './exit.guard';
+import { ExitGuard }   from './Guards/exit.guard';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyATt36GJHPvqSKNaTIcdXpU47Xdv0_Ofmg",
@@ -52,7 +51,6 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     MainPageComponent,
-    TagsComponent,
     PageLogInComponent,
     PageCreateAPostComponent,
     PageArticleComponent,
