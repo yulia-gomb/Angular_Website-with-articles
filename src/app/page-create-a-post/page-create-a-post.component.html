@@ -20,7 +20,25 @@
       </div>
 
       <h2>Enter the title of your article</h2>
-      <input type="text" placeholder="Enter Title" class="input-enter-title" name="title" ngModel required>
+      <input type="text" name="title" #title="ngModel" required minlength="5" maxlength="200"  placeholder="Enter Title" class="input-enter-title" ngModel/>
+
+      <div *ngIf="title.invalid && (title.dirty || title.touched)"
+           class="alert">
+
+        <div *ngIf="title.errors?.required">
+          The "Title" field is required.
+        </div>
+        <div *ngIf="title.errors?.minlength">
+          Title must be at least 5 characters long.
+        </div>
+        <div *ngIf="title.errors?.maxlength">
+          Title must be max 200 characters long.
+        </div>
+        <!--<div *ngIf="title.errors?.pattern">
+          The symbol "@" is forbidden
+        </div>-->
+
+      </div>
 
       <div *ngFor="let item of items">
         <h2>Enter the subtitle of your article</h2>
@@ -43,8 +61,8 @@
 
     </div>
     <div class="post-footer">
-      <button class="button-preview">Preview</button>
-      <button type="submit" (click)="submit(myForm)" class="button-publish">Publish</button>
+      <button class="button-preview" [disabled]="myForm.form.invalid">Preview</button>
+      <button type="submit" (click)="onSubmit(myForm)" class="button-publish" [disabled]="myForm.form.invalid">Publish</button>
     </div>
   </form>
 

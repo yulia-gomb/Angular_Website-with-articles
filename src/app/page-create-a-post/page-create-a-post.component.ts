@@ -11,11 +11,12 @@ import { FirebaseService} from "../Services/firebase.service";
 })
 export class PageCreateAPostComponent implements OnInit {
 
-  public items: any[] = [''];
-
   constructor(private firebaseService: FirebaseService) {}
 
-    //button @Add new block"
+    //button "Add new block"
+
+    public items: any[] = [''];
+
     public addNewBlock(e: Event) {
       e.preventDefault();
       console.log(e)
@@ -44,11 +45,33 @@ export class PageCreateAPostComponent implements OnInit {
         this.tags = tags)
   }
 
-  //submit form
-  submit(myForm: NgForm){
+    //submit form
+    article: any;
 
-    console.log(myForm);
-  }
+    onSubmit(myForm: NgForm){
+      console.log(myForm);
+
+      //get values for article object
+
+      //***title
+      let title = myForm.value.title
+
+      //***author
+      let author: any = localStorage.getItem("author");
+
+      //***date
+      let date = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
+
+      console.log(date);
+
+      //save (send) article
+      this.firebaseService.sendArticle({
+        title: title,
+        author: author,
+        date: date
+      })
+
+    }
 
 
 }

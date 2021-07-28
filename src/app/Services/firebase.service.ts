@@ -12,9 +12,9 @@ export class FirebaseService {
   tags: Observable<any>;
 
 
-  constructor(db: AngularFireDatabase) {
-    this.items = db.list('articles').valueChanges();
 
+  constructor(private db: AngularFireDatabase) {
+    this.items = db.list('articles').valueChanges();
     this.tags = db.list('tags').valueChanges();
   }
 
@@ -24,6 +24,10 @@ export class FirebaseService {
 
   getTags() {
     return this.tags
+  }
+
+  sendArticle(article: any) {
+    this.db.list('articles').push(article);
   }
 
 }
