@@ -16,13 +16,13 @@ export class PageCreateAPostComponent implements OnInit {
     //button "Add new block"
 
     public items: any[] = [''];
-    values: any = [];
+    count: number = 1;
 
     public addNewBlock(e: Event) {
       e.preventDefault();
       this.items = [...this.items, this.items.length];
-      this.values.push({value: ''});
-      console.log(this.values)
+      this.count++;
+      console.log(this.count);
     }
 
     //function of adding tags to article
@@ -58,9 +58,19 @@ export class PageCreateAPostComponent implements OnInit {
       //***title
       let title: string = myForm.value.title
 
-      //***subtitles
-      let subtitle: string = myForm.value.subtitle
-      console.log(subtitle);
+      //***subtitles and text
+      let value: string[] = myForm.value;
+      let subtitles: string[] = [];
+      let text: string[] = [];
+
+      for (let i = 0; i < this.count; i++) {
+        let keyOfSubtitles: any= "subtitle"+i;
+        subtitles.push(value[keyOfSubtitles]);
+
+        let keyOfText: any= "text"+i;
+        text.push(value[keyOfText]);
+
+      }
 
       //***author
       let author: string | null | undefined = localStorage.getItem("author");
@@ -73,6 +83,9 @@ export class PageCreateAPostComponent implements OnInit {
       //save (send) article
       this.firebaseService.sendArticle({
         title: title,
+        description: subtitles,
+        subtitles: subtitles,
+        text: text,
         author: author,
         date: date,
         tags: this.tagsForForm
