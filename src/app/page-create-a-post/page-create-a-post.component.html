@@ -3,46 +3,22 @@
   <form class="form" #myForm="ngForm">
     <div class="wrapper">
 
-      <!--<div class="upload-file__wrapper">
-        <img id="image"  alt="image"/>
-        <input
-          type="file"
-          name="files[]"
-          id="upload-file__input_1"
-          class="upload-file__input"
-          accept=".jpg, .jpeg, .png, .gif, .bmp"
-        >
-
-        <label class="upload-file__label" for="upload-file__input_1">
-          <img class="upload-file__icon" src="../../assets/img/icon-plus-blue.png" alt="upload file"/>
-          <span class="upload-file__text">Add Cover</span>
-        </label>
-      </div>-->
-
       <label class="image-upload-container btn btn-bwm">
-        <span>Select Image</span>
+        <span class="button-add-cover">Add Cover</span>
         <input #imageInput
                type="file"
                accept="image/*"
                class="input-image"
+               name="image" ngModel
                (change)="processFile(imageInput)">
       </label>
 
-
       <div *ngIf="selectedFile" class="img-preview-container">
-
-        <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+        <div class="img-preview"
              [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
         </div>
-
-        <div *ngIf="selectedFile.pending" class="img-loading-overlay">
-          <div class="img-spinning-circle"></div>
-        </div>
-
-        <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
-        <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+        <div *ngIf="selectedFile.pending" class="img-loading-overlay"></div>
       </div>
-
 
       <h2>Enter the title of your article</h2>
       <input type="text" name="title" #title="ngModel" required minlength="5" maxlength="200"  placeholder="Enter Title" class="input-enter-title" ngModel/>
@@ -87,7 +63,7 @@
     </div>
     <div class="post-footer">
       <button class="button-preview" [disabled]="myForm.form.invalid">Preview</button>
-      <button type="submit" (click)="onSubmit(myForm)" class="button-publish" [disabled]="myForm.form.invalid">Publish</button>
+      <button type="submit" (click)="onSubmit(myForm, imageInput)" class="button-publish" [disabled]="myForm.form.invalid">Publish</button>
     </div>
   </form>
 

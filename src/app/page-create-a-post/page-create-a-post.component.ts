@@ -20,42 +20,10 @@ class ImageSnippet {
 })
 export class PageCreateAPostComponent implements OnInit {
 
-  selectedFile: any;
+
 
   constructor(private firebaseService: FirebaseService,
               private imageService: ImageService) {}
-
-
-    //adding image
-
-  private onSuccess() {
-    this.selectedFile.pending = false;
-    this.selectedFile.status = 'ok';
-  }
-
-  private onError() {
-    this.selectedFile.pending = false;
-    this.selectedFile.status = 'fail';
-    this.selectedFile.src = '';
-  }
-
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener('load', (event: any) => {
-
-      this.selectedFile = new ImageSnippet(event.target.result, file);
-
-      this.selectedFile.pending = true;
-      let name = imageInput.files[0].name;
-      this.imageService.uploadImage(file, name);
-    });
-
-    reader.readAsDataURL(file);
-  }
-
-    //------------------
 
 
     //button "Add new block"
@@ -92,13 +60,46 @@ export class PageCreateAPostComponent implements OnInit {
         this.tags = tags)
   }
 
+  //adding image
+
+  selectedFile: any;
+
+  file: any;
+
+  processFile(imageInput: any) {
+
+    this.file = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new ImageSnippet(event.target.result, this.file);
+      this.selectedFile.pending = true;
+
+
+    });
+
+    reader.readAsDataURL(this.file);
+
+  }
+
+
     //submit form
 
-    onSubmit(myForm: NgForm){
+    onSubmit(myForm: NgForm, imageInput: any){
 
-      console.log(myForm);
+      console.log(myForm.value);
 
       //get values for article object
+
+      //***image
+      let name = imageInput.files[0].name;
+      this.imageService.uploadImage(this.file, name)
+
+
+      let url = this.imageService.uploadImage(this.file, name)
+      /*let url = this.imageService.getURLimage('web1.png');*/
+      console.log(url)
 
       //***title
       let title: string = myForm.value.title
@@ -127,6 +128,7 @@ export class PageCreateAPostComponent implements OnInit {
 
       //save (send) article
       this.firebaseService.sendArticle({
+        /*img: url,*/
         title: title,
         description: subtitles,
         subtitles: subtitles,
