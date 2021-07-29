@@ -1,17 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm} from "@angular/forms";
 import { FirebaseService} from "../Services/firebase.service";
+import { ImageService } from "../Services/image.service";
+
+
+class ImageSnippet {
+  pending: boolean = false;
+  status: string = 'init';
+
+  constructor(public src: string, public file: File) {}
+}
 
 
 @Component({
   selector: 'app-page-create-a-post',
   templateUrl: './page-create-a-post.component.html',
   styleUrls: ['./page-create-a-post.component.css'],
-  providers: [FirebaseService]
+  providers: [FirebaseService, ImageService]
 })
 export class PageCreateAPostComponent implements OnInit {
 
-  constructor(private firebaseService: FirebaseService) {}
+  selectedFile: any;
+
+  constructor(private firebaseService: FirebaseService,
+              private imageService: ImageService) {}
+
+
+    //adding image
+
+  private onSuccess() {
+    this.selectedFile.pending = false;
+    this.selectedFile.status = 'ok';
+  }
+
+  private onError() {
+    this.selectedFile.pending = false;
+    this.selectedFile.status = 'fail';
+    this.selectedFile.src = '';
+  }
+
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+
+      this.selectedFile.pending = true;
+      let name = imageInput.files[0].name;
+      this.imageService.uploadImage(file, name);
+    });
+
+    reader.readAsDataURL(file);
+  }
+
+    //------------------
+
 
     //button "Add new block"
 

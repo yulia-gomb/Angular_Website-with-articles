@@ -3,7 +3,7 @@
   <form class="form" #myForm="ngForm">
     <div class="wrapper">
 
-      <div class="upload-file__wrapper">
+      <!--<div class="upload-file__wrapper">
         <img id="image"  alt="image"/>
         <input
           type="file"
@@ -17,7 +17,32 @@
           <img class="upload-file__icon" src="../../assets/img/icon-plus-blue.png" alt="upload file"/>
           <span class="upload-file__text">Add Cover</span>
         </label>
+      </div>-->
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image</span>
+        <input #imageInput
+               type="file"
+               accept="image/*"
+               class="input-image"
+               (change)="processFile(imageInput)">
+      </label>
+
+
+      <div *ngIf="selectedFile" class="img-preview-container">
+
+        <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+             [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+        </div>
+
+        <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+          <div class="img-spinning-circle"></div>
+        </div>
+
+        <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+        <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
       </div>
+
 
       <h2>Enter the title of your article</h2>
       <input type="text" name="title" #title="ngModel" required minlength="5" maxlength="200"  placeholder="Enter Title" class="input-enter-title" ngModel/>
