@@ -16,11 +16,13 @@ export class PageCreateAPostComponent implements OnInit {
     //button "Add new block"
 
     public items: any[] = [''];
+    values: any = [];
 
     public addNewBlock(e: Event) {
       e.preventDefault();
-      console.log(e)
-      this.items = [...this.items, this.items.length]
+      this.items = [...this.items, this.items.length];
+      this.values.push({value: ''});
+      console.log(this.values)
     }
 
     //function of adding tags to article
@@ -46,29 +48,34 @@ export class PageCreateAPostComponent implements OnInit {
   }
 
     //submit form
-    article: any;
 
     onSubmit(myForm: NgForm){
+
       console.log(myForm);
 
       //get values for article object
 
       //***title
-      let title = myForm.value.title
+      let title: string = myForm.value.title
+
+      //***subtitles
+      let subtitle: string = myForm.value.subtitle
+      console.log(subtitle);
 
       //***author
-      let author: any = localStorage.getItem("author");
+      let author: string | null | undefined = localStorage.getItem("author");
 
       //***date
-      let date = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
+      let date: string = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
 
-      console.log(date);
+
 
       //save (send) article
       this.firebaseService.sendArticle({
         title: title,
         author: author,
-        date: date
+        date: date,
+        tags: this.tagsForForm
       })
 
     }

@@ -40,11 +40,11 @@
 
       </div>
 
-      <div *ngFor="let item of items">
+      <div *ngFor="let value of values, let i = index">
         <h2>Enter the subtitle of your article</h2>
-        <input type="text" placeholder="Enter Subtitle" class="input-enter-subtitle" name="subtitles" ngModel>
+        <input type="text" [(ngModel)]="value.value" #name="ngModel" placeholder="Enter Subtitle" class="input-enter-subtitle" name="value{{i}}" ngModel>
         <h2>Tell your story...</h2>
-        <textarea name="text" ngModel></textarea>
+        <textarea name="text{{i}}" ngModel></textarea>
       </div>
 
       <button (click)="addNewBlock($event)" class="button-add-new-block">Add new block</button>

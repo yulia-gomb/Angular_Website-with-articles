@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import firebase from "firebase";
-import "firebase/database";
 import { FirebaseService} from "../Services/firebase.service";
 
 @Component({
@@ -26,18 +24,10 @@ export class PageArticleComponent implements OnInit {
 
     // getting data from Firebase
 
-    /*firebase.database().ref().on('value', (snap) => {
-      this.data = snap.val().articles[this.id];
-      console.log(this.data)
-      this.textArray = this.data.text;
-
-    })*/
-
-    this.firebaseService.getArticles().subscribe( data =>
-      this.data = data[0],
-      /*this.textArray = this.data[0].text*/
-    )
-
+    this.firebaseService.getArticles().subscribe( data =>{
+        this.data = data[this.id],
+          this.textArray = data[this.id].text
+    })
 
   }
 

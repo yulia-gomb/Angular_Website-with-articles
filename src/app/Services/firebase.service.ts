@@ -14,7 +14,7 @@ export class FirebaseService {
 
 
   constructor(private db: AngularFireDatabase) {
-    this.items = db.list('articles').valueChanges();
+    this.items = db.object('articles').valueChanges();
     this.tags = db.list('tags').valueChanges();
   }
 
