@@ -23,12 +23,13 @@ export class MainPageComponent implements OnInit {
 
   filterByTags(e: any) {
     let newTag = e.target.innerHTML;
-    if(!this.tagsForFilter.includes(newTag)){
+    if(!this.tagsForFilter.includes(newTag.trim())){
       this.tagsForFilter.push(newTag.trim());
-      this.activated=!this.activated;
+      e.target.classList.add('active');
     } else {
       this.tagsForFilter = this.tagsForFilter.filter(item => item !== newTag);
-      this.activated=!this.activated;
+      e.target.classList.remove('active');
+
     }
     console.log(this.tagsForFilter);
 

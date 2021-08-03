@@ -1,15 +1,16 @@
 <main class="create-post-page">
 
-  <form class="form" #myForm="ngForm">
+  <form class="form" [formGroup]="myForm" (ngSubmit)="submit()">
     <div class="wrapper">
 
       <label class="image-upload-container btn btn-bwm">
+        <img src="assets/img/icon-plus-blue.png" alt="+" class="upload-file_icon">
         <span class="button-add-cover">Add Cover</span>
         <input #imageInput
                type="file"
                accept="image/*"
                class="input-image"
-               name="image" ngModel
+               name="image"
                (change)="processFile(imageInput)">
       </label>
 
@@ -21,31 +22,32 @@
       </div>
 
       <h2>Enter the title of your article</h2>
-      <input type="text" name="title" #title="ngModel" required minlength="5" maxlength="200"  placeholder="Enter Title" class="input-enter-title" ngModel/>
+      <input type="text" name="title" formControlName="title" id="title" required
+             placeholder="Enter Title" class="input-enter-title"/>
 
-      <div *ngIf="title.invalid && (title.dirty || title.touched)"
+      <div *ngIf="myForm.controls['title'].invalid && (myForm.controls['title'].dirty || myForm.controls['title'].touched)"
            class="alert">
 
-        <div *ngIf="title.errors?.required">
+        <div *ngIf="myForm.controls['title'].errors?.required">
           The "Title" field is required.
         </div>
-        <div *ngIf="title.errors?.minlength">
+        <div *ngIf="myForm.controls['title'].errors?.minlength">
           Title must be at least 5 characters long.
         </div>
-        <div *ngIf="title.errors?.maxlength">
+        <div *ngIf="myForm.controls['title'].errors?.maxlength">
           Title must be max 200 characters long.
         </div>
-        <!--<div *ngIf="title.errors?.pattern">
+        <div *ngIf="myForm.controls['title'].errors?.pattern">
           The symbol "@" is forbidden
-        </div>-->
+        </div>
 
       </div>
 
       <div *ngFor="let item of items, let i = index">
         <h2>Enter the subtitle of your article</h2>
-        <input type="text" placeholder="Enter Subtitle" class="input-enter-subtitle" name="subtitle{{i}}" ngModel>
+        <input type="text" placeholder="Enter Subtitle" class="input-enter-subtitle" name="subtitle{{i}}" formControlName="subtitle">
         <h2>Tell your story...</h2>
-        <textarea name="text{{i}}" ngModel></textarea>
+        <textarea name="text{{i}}" formControlName="text"></textarea>
       </div>
 
       <button (click)="addNewBlock($event)" class="button-add-new-block">Add new block</button>
@@ -62,8 +64,8 @@
 
     </div>
     <div class="post-footer">
-      <button class="button-preview" [disabled]="myForm.form.invalid">Preview</button>
-      <button type="submit" (click)="onSubmit(myForm, imageInput)" class="button-publish" [disabled]="myForm.form.invalid">Publish</button>
+      <button type="submit" class="button-preview">Preview</button>
+      <button type="submit" class="button-publish">Publish</button>
     </div>
   </form>
 

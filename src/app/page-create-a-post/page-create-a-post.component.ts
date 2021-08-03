@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm} from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService} from "../Services/firebase.service";
 import { ImageService } from "../Services/image.service";
 
@@ -20,11 +21,32 @@ class ImageSnippet {
 })
 export class PageCreateAPostComponent implements OnInit {
 
+  //reactive form
 
+  myForm : FormGroup;
 
   constructor(private firebaseService: FirebaseService,
-              private imageService: ImageService) {}
+              private imageService: ImageService) {
 
+    this.myForm = new FormGroup({
+
+      "title": new FormControl("", [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(200),
+        Validators.pattern("^(?!.*@).*$")
+      ]),
+      "subtitle": new FormControl(""),
+      "text": new FormControl("" )
+    });
+
+
+
+  }
+
+  submit(){
+    console.log(this.myForm);
+  }
 
     //button "Add new block"
 
@@ -35,7 +57,6 @@ export class PageCreateAPostComponent implements OnInit {
       e.preventDefault();
       this.items = [...this.items, this.items.length];
       this.count++;
-      console.log(this.count);
     }
 
     //function of adding tags to article
@@ -97,9 +118,8 @@ export class PageCreateAPostComponent implements OnInit {
       this.imageService.uploadImage(this.file, name)
 
 
-      let url = this.imageService.uploadImage(this.file, name)
-      /*let url = this.imageService.getURLimage('web1.png');*/
-      console.log(url)
+      let url = this.imageService.getURLimage(this.file, name)
+      console.log(url);
 
       //***title
       let title: string = myForm.value.title

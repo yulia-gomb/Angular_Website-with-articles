@@ -16,7 +16,7 @@
       <input type="text" class="button-search" placeholder="Search for article">
 
       <ul class="tags">
-        <li [ngClass]="activated ? 'tag' : 'tag active'" *ngFor="let item of tags" (click)="filterByTags($event)">
+        <li class="tag" *ngFor="let item of tags" (click)="filterByTags($event)">
           {{item}}
         </li>
       </ul>

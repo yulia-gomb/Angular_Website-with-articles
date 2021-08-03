@@ -24,6 +24,13 @@ export class ImageService {
     const fileRef = this.storage.ref(name);
     const task = this.storage.upload(name, file);
 
+
+  }
+
+  public getURLimage(file: any, name: string){
+    const fileRef = this.storage.ref(name);
+    const task = this.storage.upload(name, file);
+
     // observe percentage changes
     this.uploadPercent = task.percentageChanges();
     // get notified when the download URL is available
@@ -31,7 +38,7 @@ export class ImageService {
       finalize(() => {
         fileRef.getDownloadURL().subscribe( url =>{
           this.downloadURL = url
-        console.log(this.downloadURL)}
+          console.log(this.downloadURL)}
         )
 
       })
@@ -39,21 +46,8 @@ export class ImageService {
       .subscribe( )
 
     return this.downloadURL;
+
   }
-
-
-
-
-
-  /*public getURLimage(name: string){
-    const ref = this.storage.ref(name);
-    ref.getDownloadURL().subscribe( url =>{
-        this.profileUrl = url;
-        console.log(this.profileUrl)
-      }
-    )
-    return this.profileUrl;
-  }*/
 
 
 }
