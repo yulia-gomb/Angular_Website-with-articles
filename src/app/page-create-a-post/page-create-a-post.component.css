@@ -152,7 +152,7 @@ textarea{
   background-color: transparent;
   position: absolute;
   width: 1000px;
-  height: 116px;
+
   z-index: -1;
 }
 .img-preview {

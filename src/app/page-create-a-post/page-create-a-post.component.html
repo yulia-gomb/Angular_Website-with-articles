@@ -43,12 +43,16 @@
         </div>
 
       </div>
+      <div formArrayName="subtitles">
 
-      <div *ngFor="let item of items, let i = index">
-        <h2>Enter the subtitle of your article</h2>
-        <input type="text" placeholder="Enter Subtitle" class="input-enter-subtitle" name="subtitle{{i}}" formControlName="subtitle">
-        <h2>Tell your story...</h2>
-        <textarea name="text{{i}}" formControlName="text"></textarea>
+          <div *ngFor="let subtitles of getFormsControls()['controls']; let i = index">
+            <h2>Enter the subtitle of your article</h2>
+            <input type="text" placeholder="Enter Subtitle" class="input-enter-subtitle"
+                   name="subtitles" formControlName="{{i}}">
+            <h2>Tell your story...</h2>
+            <textarea name="text" formControlName="{{i}}"></textarea>
+          </div>
+
       </div>
 
       <button (click)="addNewBlock($event)" class="button-add-new-block">Add new block</button>

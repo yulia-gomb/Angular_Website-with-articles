@@ -30,6 +30,12 @@ export class PageCreateAPostComponent implements OnInit {
       e.preventDefault();
       this.items = [...this.items, this.items.length];
       this.count++;
+      (<FormArray>this.myForm.controls["subtitles"]).push(new FormControl(""));
+      (<FormArray>this.myForm.controls["text"]).push(new FormControl(""));
+    }
+
+    getFormsControls() : FormArray{
+      return this.myForm.controls['subtitles'] as FormArray;
     }
 
     //function of adding tags to article
@@ -98,8 +104,12 @@ export class PageCreateAPostComponent implements OnInit {
         Validators.maxLength(200),
         Validators.pattern("^(?!.*@).*$")
       ]),
-      "subtitle": new FormControl(""),
-      "text": new FormControl("" )
+      "subtitles": new FormArray([
+        new FormControl("")
+      ]),
+      "text": new FormArray([
+        new FormControl("")
+      ])
     });
   }
 
@@ -117,8 +127,8 @@ export class PageCreateAPostComponent implements OnInit {
     this.article = {
       img: this.selectedFile.src,
       title: this.myForm.controls.title.value,
-      description: this.myForm.controls.subtitle.value,
-      subtitles: this.myForm.controls.subtitle.value,
+      description: this.myForm.controls.subtitles.value,
+      subtitles: this.myForm.controls.subtitles.value,
       text: this.myForm.controls.text.value,
       author: this.author,
       date: this.date,
