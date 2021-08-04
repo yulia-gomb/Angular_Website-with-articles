@@ -133,22 +133,33 @@ textarea{
 }
 .image-upload-container {
   cursor: pointer;
-
+  position: absolute;
+  z-index: 1;
+  left: 40%;
+  top: 45%
 }
 .button-add-cover {
   color: #2F80ED;
   font-size: 16px;
 }
-.img-preview-container {
+.img-load-container {
   background-color: transparent;
   position: relative;
   border: 1px dashed #2F80ED;
   height: 116px;
 }
+.img-preview-container {
+  background-color: transparent;
+  position: absolute;
+  width: 1000px;
+  height: 116px;
+  z-index: -1;
+}
 .img-preview {
   background: center center no-repeat;
   background-size: contain;
   height: 116px;
+
 }
 
 .upload-file_icon{

@@ -21,33 +21,6 @@ class ImageSnippet {
 })
 export class PageCreateAPostComponent implements OnInit {
 
-  //reactive form
-
-  myForm : FormGroup;
-
-  constructor(private firebaseService: FirebaseService,
-              private imageService: ImageService) {
-
-    this.myForm = new FormGroup({
-
-      "title": new FormControl("", [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(200),
-        Validators.pattern("^(?!.*@).*$")
-      ]),
-      "subtitle": new FormControl(""),
-      "text": new FormControl("" )
-    });
-
-
-
-  }
-
-  submit(){
-    console.log(this.myForm);
-  }
-
     //button "Add new block"
 
     public items: any[] = [''];
@@ -104,10 +77,68 @@ export class PageCreateAPostComponent implements OnInit {
 
   }
 
+  //reactive form
 
-    //submit form
+  myForm : FormGroup;
+  article: any;
+  //author of article
+  author: string | null | undefined = localStorage.getItem("author");
+  //date of article
+  date: string = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
 
-    onSubmit(myForm: NgForm, imageInput: any){
+
+  constructor(private firebaseService: FirebaseService,
+              private imageService: ImageService) {
+
+    this.myForm = new FormGroup({
+
+      "title": new FormControl("", [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(200),
+        Validators.pattern("^(?!.*@).*$")
+      ]),
+      "subtitle": new FormControl(""),
+      "text": new FormControl("" )
+    });
+  }
+
+  onSubmit(imageInput: any){
+    console.log('publish');
+    console.log(this.myForm.controls);
+
+    //***image
+    let name = imageInput.files[0].name;
+    this.imageService.uploadImage(this.file, name)
+
+
+    //save (send) article
+
+    this.article = {
+      img: this.selectedFile.src,
+      title: this.myForm.controls.title.value,
+      description: this.myForm.controls.subtitle.value,
+      subtitles: this.myForm.controls.subtitle.value,
+      text: this.myForm.controls.text.value,
+      author: this.author,
+      date: this.date,
+      tags: this.tagsForForm
+    }
+
+    this.firebaseService.sendArticle(this.article)
+
+  }
+
+  previewArticle(){
+    console.log('preview');
+    console.log(this.myForm);
+  }
+
+
+
+    //-----------------------------------submit form
+
+    SubmitForm(myForm: NgForm, imageInput: any){
 
       console.log(myForm.value);
 
@@ -118,8 +149,8 @@ export class PageCreateAPostComponent implements OnInit {
       this.imageService.uploadImage(this.file, name)
 
 
-      let url = this.imageService.getURLimage(this.file, name)
-      console.log(url);
+      /*let url = this.imageService.getURLimage(this.file, name)*/
+      /*console.log(url);*/
 
       //***title
       let title: string = myForm.value.title

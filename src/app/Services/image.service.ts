@@ -20,14 +20,12 @@ export class ImageService {
     /*const ref = this.storage.ref(name);
     ref.put(file);*/
 
-
-    const fileRef = this.storage.ref(name);
-    const task = this.storage.upload(name, file);
+     this.storage.upload(name, file);
 
 
   }
 
-  public getURLimage(file: any, name: string){
+  /*public getURLimage(file: any, name: string){
     const fileRef = this.storage.ref(name);
     const task = this.storage.upload(name, file);
 
@@ -47,7 +45,7 @@ export class ImageService {
 
     return this.downloadURL;
 
-  }
+  }*/
 
 
 }
