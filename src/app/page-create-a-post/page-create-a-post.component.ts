@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm} from "@angular/forms";
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService} from "../Services/firebase.service";
 import { ImageService } from "../Services/image.service";
 
@@ -44,12 +44,12 @@ export class PageCreateAPostComponent implements OnInit {
     tagsForForm: string[] = [];
 
     addTags(e: any) {
-      let newTag = e.target.innerHTML;
+      let newTag = e.target.innerHTML.trim();
       if(!this.tagsForForm.includes(newTag)){
         this.tagsForForm.push(newTag)
       } else {
         this.tagsForForm = this.tagsForForm.filter(item => item !== newTag);
-      }
+        }
     }
 
     ngOnInit(): void {
