@@ -10,7 +10,7 @@ export class FirebaseService {
 
   items: Observable<any>;
   tags: Observable<any>;
-
+  filteredArticles: Observable<any> | undefined;
 
 
   constructor(private db: AngularFireDatabase) {
@@ -29,5 +29,18 @@ export class FirebaseService {
   sendArticle(article: any) {
     this.db.list('articles').push(article);
   }
+
+  getArticlesBySearch(res: any) {
+    this.filteredArticles = this.db.list('articles', ref =>
+      ref.orderByChild('title').startAt(res)
+    ).valueChanges()
+      return this.filteredArticles;
+        }
+
+
+
+
+
+
 
 }

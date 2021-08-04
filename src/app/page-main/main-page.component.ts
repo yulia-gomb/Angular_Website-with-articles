@@ -14,6 +14,7 @@ export class MainPageComponent implements OnInit {
 
   data: any;
   tags: string[] | undefined;
+  res: any;
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -44,9 +45,7 @@ export class MainPageComponent implements OnInit {
     // getting data from Firebase
 
     this.firebaseService.getArticles().subscribe( data =>
-    this.data = Object.entries(data)
-
-    )
+    this.data = Object.entries(data))
 
     this.firebaseService.getTags().subscribe(tags =>
       this.tags = tags)
@@ -56,11 +55,24 @@ export class MainPageComponent implements OnInit {
     let searchBox: any = document.getElementById('searchInput');
     let keyup = fromEvent(searchBox, 'keyup');
 
+
     keyup.pipe(
       map((i: any) => i.currentTarget.value),
       debounceTime(500)
     )
-      .subscribe(res => console.log(res));
+      .subscribe(res => {
+        this.res = res;
+        this.firebaseService.getArticlesBySearch(this.res).subscribe( data => {
+            this.data = Object.entries(data);
+            }
+        )
+      });
+
+
+
+
+
+
 
   }
 
