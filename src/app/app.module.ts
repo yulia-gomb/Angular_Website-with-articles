@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Routes } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {RouterModule, Routes} from "@angular/router";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './Common/header/header.component';
-import { FooterComponent } from './Common/footer/footer.component';
-import { MainPageComponent } from './page-main/main-page.component';
-import { PageLogInComponent } from './page-log-in/page-log-in.component';
-import { PageCreateAPostComponent } from './page-create-a-post/page-create-a-post.component';
-import { PageArticleComponent } from './page-article/page-article.component';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './Common/header/header.component';
+import {FooterComponent} from './Common/footer/footer.component';
+import {MainPageComponent} from './page-main/main-page.component';
+import {PageLogInComponent} from './page-log-in/page-log-in.component';
+import {PageCreateAPostComponent} from './page-create-a-post/page-create-a-post.component';
+import {PageArticleComponent} from './page-article/page-article.component';
+import {PagePreviewAPostComponent} from './page-preview-a-post/page-preview-a-post.component';
 
-
-import { ExitGuard }   from './Guards/exit.guard';
-import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import {ExitGuard} from './Guards/exit.guard';
+import {AngularFireAuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {environment} from "../environments/environment";
 
 import "firebase/app";
@@ -22,10 +22,15 @@ import "firebase/auth";
 import "firebase/storage";
 import "firebase/database";
 import firebase from "firebase";
-import { AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireStorageModule} from "@angular/fire/storage";
 import {AngularFireModule} from "@angular/fire";
-import { AngularFireDatabaseModule } from "@angular/fire/database";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
 
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
+import {AppEffects} from './app.effects';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, reducers} from './reducers';
 
 
 export const firebaseConfig = {
@@ -46,7 +51,15 @@ const appRoutes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'log-in', component: PageLogInComponent},
   {path: 'article/:id', component: PageArticleComponent},
-  {path: 'create-a-post', component: PageCreateAPostComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }, canDeactivate: [ExitGuard]}
+  {
+    path: 'create-a-post',
+    component: PageCreateAPostComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: redirectUnauthorizedToLogin},
+    canDeactivate: [ExitGuard]
+  },
+  {path: 'preview-a-post', component: PagePreviewAPostComponent},
+  {path: '**', redirectTo: '/'}
 ]
 
 @NgModule({
@@ -57,7 +70,8 @@ const appRoutes: Routes = [
     MainPageComponent,
     PageLogInComponent,
     PageCreateAPostComponent,
-    PageArticleComponent
+    PageArticleComponent,
+    PagePreviewAPostComponent
   ],
   imports: [
     BrowserModule,
@@ -67,9 +81,15 @@ const appRoutes: Routes = [
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    EffectsModule.forRoot([AppEffects]),
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    })
   ],
   providers: [ExitGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

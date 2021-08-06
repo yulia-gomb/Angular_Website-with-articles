@@ -3,6 +3,7 @@ import { NgForm} from "@angular/forms";
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService} from "../Services/firebase.service";
 import { ImageService } from "../Services/image.service";
+import {Router} from '@angular/router';
 
 
 class ImageSnippet {
@@ -83,18 +84,20 @@ export class PageCreateAPostComponent implements OnInit {
 
   }
 
-  //reactive form
+  //collection of data for form (reactive)
 
   myForm : FormGroup;
   article: any;
-  //author of article
+
+  //***author of article
   author: string | null | undefined = localStorage.getItem("author");
-  //date of article
+  //***date of article
   date: string = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
 
 
   constructor(private firebaseService: FirebaseService,
-              private imageService: ImageService) {
+              private imageService: ImageService,
+              private router: Router) {
 
     this.myForm = new FormGroup({
 
@@ -111,18 +114,20 @@ export class PageCreateAPostComponent implements OnInit {
         new FormControl("")
       ])
     });
+
   }
 
   onSubmit(imageInput: any){
+
     console.log('publish');
     console.log(this.myForm.controls);
 
-    //***image
+    //download image
     let name = imageInput.files[0].name;
     this.imageService.uploadImage(this.file, name)
 
 
-    //save (send) article
+    //data from form
 
     this.article = {
       img: this.selectedFile.src,
@@ -135,71 +140,21 @@ export class PageCreateAPostComponent implements OnInit {
       tags: this.tagsForForm
     }
 
+    //save (send) article on server
+
     this.firebaseService.sendArticle(this.article)
 
   }
 
   previewArticle(){
-    console.log('preview');
-    console.log(this.myForm);
+    this.router.navigate(['preview-a-post']);
   }
 
 
 
-    //-----------------------------------submit form
-
-    SubmitForm(myForm: NgForm, imageInput: any){
-
-      console.log(myForm.value);
-
-      //get values for article object
-
-      //***image
-      let name = imageInput.files[0].name;
-      this.imageService.uploadImage(this.file, name)
-
-
-      /*let url = this.imageService.getURLimage(this.file, name)*/
-      /*console.log(url);*/
-
-      //***title
-      let title: string = myForm.value.title
-
-      //***subtitles and text
-      let value: string[] = myForm.value;
-      let subtitles: string[] = [];
-      let text: string[] = [];
-
-      for (let i = 0; i < this.count; i++) {
-        let keyOfSubtitles: any= "subtitle"+i;
-        subtitles.push(value[keyOfSubtitles]);
-
-        let keyOfText: any= "text"+i;
-        text.push(value[keyOfText]);
-
-      }
-
-      //***author
-      let author: string | null | undefined = localStorage.getItem("author");
-
-      //***date
-      let date: string = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
 
 
 
-      //save (send) article
-      this.firebaseService.sendArticle({
-        /*img: url,*/
-        title: title,
-        description: subtitles,
-        subtitles: subtitles,
-        text: text,
-        author: author,
-        date: date,
-        tags: this.tagsForForm
-      })
-
-    }
 
 
 }

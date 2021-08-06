@@ -37,6 +37,10 @@ export class MainPageComponent implements OnInit {
 
     }
     console.log(this.tagsForFilter);
+    /*this.firebaseService.getArticlesByTags(this.tagsForFilter).subscribe( data => {
+        this.data = Object.entries(data);
+      }
+    )*/
 
   }
 

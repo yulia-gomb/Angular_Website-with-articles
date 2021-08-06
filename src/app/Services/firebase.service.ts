@@ -35,12 +35,14 @@ export class FirebaseService {
       ref.orderByChild('title').startAt(res)
     ).valueChanges()
       return this.filteredArticles;
-        }
+  }
 
-
-
-
-
+  /*getArticlesByTags(tags: any) {
+    this.filteredArticles = this.db.list('articles', ref =>
+      ref.where('tags','array-contains-any', tags))
+      .valueChanges();
+    return this.filteredArticles;
+  }*/
 
 
 }
