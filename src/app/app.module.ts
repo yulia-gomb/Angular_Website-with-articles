@@ -28,9 +28,9 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
-import {AppEffects} from './app.effects';
+import {SendingEffects} from './Store/sending.effects';
 import {StoreModule} from '@ngrx/store';
-import {metaReducers, reducers} from './reducers';
+import * as fromReducer from './Store/sending.reducer';
 
 
 export const firebaseConfig = {
@@ -83,10 +83,9 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    EffectsModule.forRoot([AppEffects]),
-    StoreModule.forRoot(reducers, {
-      metaReducers
-    })
+    EffectsModule.forRoot([SendingEffects]),
+    StoreModule.forRoot( {sending: fromReducer.reducer}),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
   ],
   providers: [ExitGuard],
   bootstrap: [AppComponent]

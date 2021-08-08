@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm} from "@angular/forms";
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FirebaseService} from "../Services/firebase.service";
-import { ImageService } from "../Services/image.service";
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FirebaseService} from "../Services/firebase.service";
+import {ImageService} from "../Services/image.service";
 import {Router} from '@angular/router';
+import {Store} from "@ngrx/store";
+import {SendingActions} from "../Store/sending.actions";
 
 
 class ImageSnippet {
@@ -22,82 +23,30 @@ class ImageSnippet {
 })
 export class PageCreateAPostComponent implements OnInit {
 
-    //button "Add new block"
 
-    public items: any[] = [''];
-    count: number = 1;
+  public items: any[] = [''];
+  count: number = 1;
 
-    public addNewBlock(e: Event) {
-      e.preventDefault();
-      this.items = [...this.items, this.items.length];
-      this.count++;
-      (<FormArray>this.myForm.controls["subtitles"]).push(new FormControl(""));
-      (<FormArray>this.myForm.controls["text"]).push(new FormControl(""));
-    }
-
-    getFormsControls() : FormArray{
-      return this.myForm.controls['subtitles'] as FormArray;
-    }
-
-    //function of adding tags to article
-
-    tags!: string[];
-    tagsForForm: string[] = [];
-
-    addTags(e: any) {
-      let newTag = e.target.innerHTML.trim();
-      if(!this.tagsForForm.includes(newTag)){
-        this.tagsForForm.push(newTag)
-      } else {
-        this.tagsForForm = this.tagsForForm.filter(item => item !== newTag);
-        }
-    }
-
-    ngOnInit(): void {
-
-      // getting data from Firebase
-
-      this.firebaseService.getTags().subscribe(tags =>
-        this.tags = tags)
-  }
-
-  //adding image
+  tags!: string[];
+  tagsForForm: string[] = [];
 
   selectedFile: any;
-
   file: any;
 
-  processFile(imageInput: any) {
-
-    this.file = imageInput.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener('load', (event: any) => {
-
-      this.selectedFile = new ImageSnippet(event.target.result, this.file);
-      this.selectedFile.pending = true;
-
-
-    });
-
-    reader.readAsDataURL(this.file);
-
-  }
-
-  //collection of data for form (reactive)
-
-  myForm : FormGroup;
+  myForm: FormGroup;
   article: any;
-
   //***author of article
   author: string | null | undefined = localStorage.getItem("author");
   //***date of article
-  date: string = new Date().toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"long"});
+  date: string = new Date().toLocaleDateString("en", {year: "numeric", day: "2-digit", month: "long"});
 
+
+  //button "Add new block"
 
   constructor(private firebaseService: FirebaseService,
               private imageService: ImageService,
-              private router: Router) {
+              private router: Router,
+              private store$: Store) {
 
     this.myForm = new FormGroup({
 
@@ -117,7 +66,64 @@ export class PageCreateAPostComponent implements OnInit {
 
   }
 
-  onSubmit(imageInput: any){
+  //collection of data for form (reactive)
+
+  ngOnInit(): void {
+
+    // getting data for page from Firebase (tags)
+
+    this.firebaseService.getTags().subscribe(tags =>
+      this.tags = tags)
+  }
+
+  public addNewBlock(e: Event) {
+    e.preventDefault();
+    this.items = [...this.items, this.items.length];
+    this.count++;
+    (<FormArray>this.myForm.controls["subtitles"]).push(new FormControl(""));
+    (<FormArray>this.myForm.controls["text"]).push(new FormControl(""));
+  }
+
+  //***subtitles
+  getFormsControls(): FormArray {
+    return this.myForm.controls['subtitles'] as FormArray;
+  }
+
+  //function of adding tags to article
+  //***tags
+  addTags(e: any) {
+    let newTag = e.target.innerHTML.trim();
+    if (!this.tagsForForm.includes(newTag)) {
+      this.tagsForForm.push(newTag)
+    } else {
+      this.tagsForForm = this.tagsForForm.filter(item => item !== newTag);
+    }
+  }
+
+
+  //adding image
+  //***image
+
+  processFile(imageInput: any) {
+
+    this.file = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new ImageSnippet(event.target.result, this.file);
+      this.selectedFile.pending = true;
+
+
+    });
+
+    reader.readAsDataURL(this.file);
+
+  }
+
+  //------------button "Publish" (sending form`s data on server)-----------
+
+  onSubmit(imageInput: any) {
 
     console.log('publish');
     console.log(this.myForm.controls);
@@ -127,7 +133,7 @@ export class PageCreateAPostComponent implements OnInit {
     this.imageService.uploadImage(this.file, name)
 
 
-    //data from form
+    //data from Form
 
     this.article = {
       img: this.selectedFile.src,
@@ -146,15 +152,20 @@ export class PageCreateAPostComponent implements OnInit {
 
   }
 
-  previewArticle(){
-    this.router.navigate(['preview-a-post']);
-  }
+  //--------------button "Preview" (sending form`s data for previewing)--------------
 
-
-
-
-
-
+    previewArticle() {
+      this.store$.dispatch(SendingActions.sendingFormDataForPreview({
+        title: this.myForm.controls.title.value,
+        img: this.selectedFile.src,
+        subtitles: this.myForm.controls.subtitles.value,
+        text: this.myForm.controls.text.value,
+        author: this.author,
+        date: this.date,
+        tags: this.tagsForForm
+      }));
+      this.router.navigate(['preview-a-post']);
+    }
 
 
 }

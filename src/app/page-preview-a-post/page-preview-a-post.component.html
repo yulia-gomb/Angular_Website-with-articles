@@ -1,34 +1,37 @@
+<div class="preview-page">
 <main class="article-page">
   <div class="wrapper">
 
-    <!--<img src="{{data.img}}" class="article-main-image" alt="Article image"/>
+
+    <img alt="Article image" class="article-main-image" src="{{img$ | async}}"/>
 
     <article class="article">
-      <h1>{{data.title}}</h1>
-      <div *ngFor="let subtitle of data.subtitles, let i = index">
+      <h1>{{title$ | async }}</h1>
+      <!--<div *ngFor="let subtitle of data.subtitles, let i = index">
         <h2>{{subtitle}}</h2>
         <p>{{textArray[i]}}</p>
-      </div>
+      </div>-->
     </article>
     <div class="article-subscription">
-      <p>{{data.author}}</p>
-      <p>{{data.date}}</p>
+      <p>{{author$ | async}}</p>
+      <p>{{date$ | async}}</p>
     </div>
     <div>
-      <ul class="tags-article">
-        <li class="tag" *ngFor="let tag of data.tags">{{tag}}</li>
-      </ul>
-    </div>-->
+      <!--<ul class="tags-article">
+        <li *ngFor="let tag of data.tags" class="tag">{{tag}}</li>
+      </ul>-->
+    </div>
   </div>
 </main>
+
 <div class="post-footer">
   <button class="button-preview" type="button">
     Return
   </button>
-  <button type="submit" class="button-publish">
+  <button class="button-publish" type="submit">
     Publish
   </button>
 </div>
-
+</div>
 
 
