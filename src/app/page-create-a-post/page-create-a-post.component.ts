@@ -32,6 +32,8 @@ export class PageCreateAPostComponent implements OnInit {
 
   selectedFile: any;
   file: any;
+  imageSrc: any;
+  showImage: boolean = false;
 
   myForm: FormGroup;
   article: any;
@@ -45,7 +47,10 @@ export class PageCreateAPostComponent implements OnInit {
   //checking store for form`s data
   formWasFilled?: boolean;
   title?: string;
-  newTagsForForm?: string[];
+  tagsForFormFromStore?: string[];
+  imageSrcFromStore?: string;
+  subtitles?: string[];
+  text?: string[];
 
   constructor(private firebaseService: FirebaseService,
               private imageService: ImageService,
@@ -68,13 +73,12 @@ export class PageCreateAPostComponent implements OnInit {
       ])
     });
 
-    this.store$.select(SendingSelectors.formWasFilled)
-      .subscribe(formWasFilled => this.formWasFilled = formWasFilled);
-    this.store$.select(SendingSelectors.title)
-      .subscribe(title => this.title = title);
-    this.store$.select(SendingSelectors.tags)
-      .subscribe(tags => this.newTagsForForm = tags);
-
+    this.store$.select(SendingSelectors.formWasFilled).subscribe(formWasFilled => this.formWasFilled = formWasFilled);
+    this.store$.select(SendingSelectors.title).subscribe(title => this.title = title);
+    this.store$.select(SendingSelectors.tags).subscribe(tags => this.tagsForFormFromStore = tags);
+    this.store$.select(SendingSelectors.img).subscribe(img => this.imageSrcFromStore = img);
+    this.store$.select(SendingSelectors.subtitles).subscribe(subtitles => this.subtitles = subtitles);
+    this.store$.select(SendingSelectors.text).subscribe(text => this.text = text);
 
   }
 
@@ -90,12 +94,17 @@ export class PageCreateAPostComponent implements OnInit {
     //--------filling the form with data from store
 
     if(this.formWasFilled){
-      /*this.myForm.setValue({
-        title: this.title
+      this.myForm.patchValue({
+        title: this.title,
+        subtitles: this.subtitles,
+        text: this.text,
 
-      });*/
-      this.myForm.controls.title.setValue(this.title);
-      if(this.newTagsForForm!==undefined){this.tagsForForm = this.newTagsForForm;}
+      });
+      /*this.myForm.controls.title.setValue(this.title);*/
+      if(this.tagsForFormFromStore!==undefined){this.tagsForForm = this.tagsForFormFromStore;}
+
+        this.showImage = true;
+        this.imageSrc = this.imageSrcFromStore;
 
 
     }
@@ -130,12 +139,15 @@ export class PageCreateAPostComponent implements OnInit {
   //adding image
   //***image
 
+
+
   processFile(imageInput: any) {
     this.file = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, this.file);
-      this.selectedFile.pending = true;
+      this.showImage = true;
+      this.imageSrc = this.selectedFile.src;
     });
     reader.readAsDataURL(this.file);
   }
@@ -147,14 +159,14 @@ export class PageCreateAPostComponent implements OnInit {
     console.log(this.myForm.controls);
 
     //download image
-    let name = imageInput.files[0].name;
-    this.imageService.uploadImage(this.file, name)
-
+    if(imageInput.files[0]!==undefined){
+      let name = imageInput.files[0].name;
+      this.imageService.uploadImage(this.file, name);
+    }
 
     //data from Form
-
     this.article = {
-      img: this.selectedFile.src,
+      img: this.imageSrc,
       title: this.myForm.controls.title.value,
       description: this.myForm.controls.subtitles.value,
       subtitles: this.myForm.controls.subtitles.value,
@@ -165,9 +177,9 @@ export class PageCreateAPostComponent implements OnInit {
     }
 
     //save (send) article on server
-
     this.firebaseService.sendArticle(this.article)
-
+    //send action to clear state
+    this.store$.dispatch(SendingActions.clearState());
   }
 
   //--------------button "Preview" (sending form`s data for previewing)--------------
@@ -175,7 +187,7 @@ export class PageCreateAPostComponent implements OnInit {
     previewArticle() {
       this.store$.dispatch(SendingActions.sendingFormDataForPreview({
         title: this.myForm.controls.title.value,
-        img: this.selectedFile.src,
+        img: this.imageSrc,
         subtitles: this.myForm.controls.subtitles.value,
         text: this.myForm.controls.text.value,
         author: this.author,

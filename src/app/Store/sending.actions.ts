@@ -17,6 +17,9 @@ export namespace SendingActions {
   export const returningToCreateAPost = createAction(
     'RETURNING_TO_CREATE_A_POST' );
 
+  export const clearState = createAction(
+    'CLEAR_STATE');
+
 }
 
 

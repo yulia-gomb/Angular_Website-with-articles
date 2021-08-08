@@ -14,11 +14,11 @@
                  name="image"
                  (change)="processFile(imageInput)">
         </label>
-        <div *ngIf="selectedFile" class="img-preview-container">
+        <div *ngIf="showImage" class="img-preview-container">
           <div class="img-preview"
-               [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+               [ngStyle]="{'background-image': 'url('+ imageSrc + ')'}">
           </div>
-          <div *ngIf="selectedFile.pending"></div>
+          <!--<div *ngIf="showImage"></div>-->
         </div>
       </div>
 

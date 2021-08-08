@@ -40,7 +40,20 @@ export const sendingReducer = createReducer(
     ...state,
     formWasFilled: true,
     })
-    )
+    ),
+  on(SendingActions.clearState, (state) => ({
+    ...state,
+    formWasFilled: false,
+    title: '',
+    img: '',
+    subtitles: [],
+    text: [],
+    author: '',
+    date: '',
+    tags: [],
+    })
+
+  )
 );
 
 export function reducer(state: State | undefined, action: Action) {
