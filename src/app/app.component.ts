@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'leverx';
-  showFooter: boolean = true;
-  params: any;
+
+
+
 
   constructor() {
 

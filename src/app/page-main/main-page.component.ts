@@ -18,9 +18,6 @@ export class MainPageComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService) {}
 
-
-
-
   //function of filter articles by tags
 
   tagsForFilter: string[] = [];
@@ -63,20 +60,13 @@ export class MainPageComponent implements OnInit {
     keyup.pipe(
       map((i: any) => i.currentTarget.value),
       debounceTime(500)
-    )
-      .subscribe(res => {
+    ).subscribe(res => {
         this.res = res;
         this.firebaseService.getArticlesBySearch(this.res).subscribe( data => {
             this.data = Object.entries(data);
             }
         )
       });
-
-
-
-
-
-
 
   }
 

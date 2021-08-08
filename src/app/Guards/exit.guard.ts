@@ -9,6 +9,6 @@ export class ExitGuard implements CanDeactivate<ComponentCanDeactivate>{
 
   canDeactivate(component: ComponentCanDeactivate) : Observable<boolean> | boolean{
 
-    return confirm("Вы уверены, хотите покинуть страницу без сохранения данных?");
+    return confirm("Are you sure you want to leave the page?");
   }
 }

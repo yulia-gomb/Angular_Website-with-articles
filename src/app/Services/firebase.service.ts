@@ -32,8 +32,7 @@ export class FirebaseService {
 
   getArticlesBySearch(res: any) {
     this.filteredArticles = this.db.list('articles', ref =>
-      ref.orderByChild('title').startAt(res)
-    ).valueChanges()
+      ref.orderByChild('title').startAt(res).endAt(res+ "\uf8ff")).valueChanges()
       return this.filteredArticles;
   }
 

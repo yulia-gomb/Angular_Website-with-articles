@@ -175,11 +175,15 @@ export class PageCreateAPostComponent implements OnInit {
       date: this.date,
       tags: this.tagsForForm
     }
-
     //save (send) article on server
     this.firebaseService.sendArticle(this.article)
-    //send action to clear state
+    //send action to clear state and reset of form
     this.store$.dispatch(SendingActions.clearState());
+    /*this.tagsForForm = [];
+    this.myForm.reset();
+    this.imageSrc = '';*/
+    /*this.items = [''];*/
+    window.location.reload();
   }
 
   //--------------button "Preview" (sending form`s data for previewing)--------------

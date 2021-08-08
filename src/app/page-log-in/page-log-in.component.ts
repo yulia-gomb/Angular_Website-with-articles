@@ -9,7 +9,7 @@ import firebase from "firebase";
 })
 export class PageLogInComponent implements OnInit {
 
-  buttonAble: boolean = true;
+  buttonSignInAble: boolean = true;
 
   constructor(public auth: AngularFireAuth) {
       }
@@ -30,7 +30,7 @@ export class PageLogInComponent implements OnInit {
       //checking of "google terms" to activate button "sign In"
 
       checkStatus() {
-          this.buttonAble = !this.buttonAble;
+          this.buttonSignInAble = !this.buttonSignInAble;
       }
 
 

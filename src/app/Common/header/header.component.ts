@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from 'firebase/app';
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
   avatarImg: string | undefined;
 
-  constructor(public auth: AngularFireAuth) { }
+  constructor(public auth: AngularFireAuth,
+              private router: Router) { }
 
   logOut() {
     this.auth.signOut().then( () => {
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
       this.showButtonSignIn = true;
       this.showButtonLogOut = false;
       this.showAvatar = false;
-
+      this.router.navigate(['/']).then();
 
     }).catch(function (err) {
       console.log("error")
