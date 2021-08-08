@@ -14,6 +14,9 @@ export namespace SendingActions {
     }>()
   );
 
+  export const returningToCreateAPost = createAction(
+    'RETURNING_TO_CREATE_A_POST' );
+
 }
 
 

@@ -12,5 +12,6 @@ export namespace SendingSelectors {
   export const author = createSelector(state, (state) => state.author);
   export const date = createSelector(state, (state) => state.date);
   export const tags = createSelector(state, (state) => state.tags);
+  export const formWasFilled = createSelector(state, (state) => state.formWasFilled);
 
 }

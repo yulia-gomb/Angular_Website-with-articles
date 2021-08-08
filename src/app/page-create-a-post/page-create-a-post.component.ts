@@ -5,12 +5,12 @@ import {ImageService} from "../Services/image.service";
 import {Router} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {SendingActions} from "../Store/sending.actions";
+import {SendingSelectors} from "../Store/sending.selectors";
 
 
 class ImageSnippet {
   pending: boolean = false;
   status: string = 'init';
-
   constructor(public src: string, public file: File) {}
 }
 
@@ -35,13 +35,17 @@ export class PageCreateAPostComponent implements OnInit {
 
   myForm: FormGroup;
   article: any;
+
+  //collection of data for form (reactive)
   //***author of article
-  author: string | null | undefined = localStorage.getItem("author");
+  author?: string | null = localStorage.getItem("author");
   //***date of article
   date: string = new Date().toLocaleDateString("en", {year: "numeric", day: "2-digit", month: "long"});
 
-
-  //button "Add new block"
+  //checking store for form`s data
+  formWasFilled?: boolean;
+  title?: string;
+  newTagsForForm?: string[];
 
   constructor(private firebaseService: FirebaseService,
               private imageService: ImageService,
@@ -64,9 +68,17 @@ export class PageCreateAPostComponent implements OnInit {
       ])
     });
 
+    this.store$.select(SendingSelectors.formWasFilled)
+      .subscribe(formWasFilled => this.formWasFilled = formWasFilled);
+    this.store$.select(SendingSelectors.title)
+      .subscribe(title => this.title = title);
+    this.store$.select(SendingSelectors.tags)
+      .subscribe(tags => this.newTagsForForm = tags);
+
+
   }
 
-  //collection of data for form (reactive)
+
 
   ngOnInit(): void {
 
@@ -74,7 +86,23 @@ export class PageCreateAPostComponent implements OnInit {
 
     this.firebaseService.getTags().subscribe(tags =>
       this.tags = tags)
+
+    //--------filling the form with data from store
+
+    if(this.formWasFilled){
+      /*this.myForm.setValue({
+        title: this.title
+
+      });*/
+      this.myForm.controls.title.setValue(this.title);
+      if(this.newTagsForForm!==undefined){this.tagsForForm = this.newTagsForForm;}
+
+
+    }
   }
+
+
+  //button "Add new block"
 
   public addNewBlock(e: Event) {
     e.preventDefault();
@@ -88,7 +116,6 @@ export class PageCreateAPostComponent implements OnInit {
   getFormsControls(): FormArray {
     return this.myForm.controls['subtitles'] as FormArray;
   }
-
   //function of adding tags to article
   //***tags
   addTags(e: any) {
@@ -100,32 +127,23 @@ export class PageCreateAPostComponent implements OnInit {
     }
   }
 
-
   //adding image
   //***image
 
   processFile(imageInput: any) {
-
     this.file = imageInput.files[0];
     const reader = new FileReader();
-
     reader.addEventListener('load', (event: any) => {
-
       this.selectedFile = new ImageSnippet(event.target.result, this.file);
       this.selectedFile.pending = true;
-
-
     });
-
     reader.readAsDataURL(this.file);
-
   }
 
   //------------button "Publish" (sending form`s data on server)-----------
 
   onSubmit(imageInput: any) {
 
-    console.log('publish');
     console.log(this.myForm.controls);
 
     //download image
@@ -162,10 +180,9 @@ export class PageCreateAPostComponent implements OnInit {
         text: this.myForm.controls.text.value,
         author: this.author,
         date: this.date,
-        tags: this.tagsForForm
+        tags: this.tagsForForm,
       }));
-      this.router.navigate(['preview-a-post']);
+      this.router.navigate(['preview-a-post']).then();
     }
-
 
 }

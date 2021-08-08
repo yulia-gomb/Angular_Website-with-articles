@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 import {SendingSelectors} from "../Store/sending.selectors";
+import {SendingActions} from "../Store/sending.actions";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page-preview-a-post',
@@ -19,7 +21,8 @@ export class PagePreviewAPostComponent implements OnInit {
   tags$: Observable<string[] | undefined>;
 
 
-  constructor(private store$: Store) {
+  constructor(private router: Router,
+              private store$: Store) {
     this.title$ = this.store$.select(SendingSelectors.title);
     this.img$ = this.store$.select(SendingSelectors.img);
     this.subtitles$ = this.store$.select(SendingSelectors.subtitles);
@@ -32,5 +35,20 @@ export class PagePreviewAPostComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  //------------button "Publish" (sending form`s data on server)-----------
+
+  sendArticle(){
+
+    console.log("Publish")
+
+
+  }
+
+  returnToCreateAPost(){
+    this.store$.dispatch(SendingActions.returningToCreateAPost());
+    this.router.navigate(['create-a-post']).then();
+  }
+
 
 }

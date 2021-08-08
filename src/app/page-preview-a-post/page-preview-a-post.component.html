@@ -7,28 +7,28 @@
 
     <article class="article">
       <h1>{{title$ | async }}</h1>
-      <!--<div *ngFor="let subtitle of data.subtitles, let i = index">
+      <div *ngFor="let subtitle of subtitles$ | async, let i = index">
         <h2>{{subtitle}}</h2>
-        <p>{{textArray[i]}}</p>
-      </div>-->
+        <!--<p>{{textArray[i]}}</p>-->
+      </div>
     </article>
     <div class="article-subscription">
       <p>{{author$ | async}}</p>
       <p>{{date$ | async}}</p>
     </div>
     <div>
-      <!--<ul class="tags-article">
-        <li *ngFor="let tag of data.tags" class="tag">{{tag}}</li>
-      </ul>-->
+      <ul class="tags-article">
+        <li *ngFor="let tag of tags$ | async" class="tag">{{tag}}</li>
+      </ul>
     </div>
   </div>
 </main>
 
 <div class="post-footer">
-  <button class="button-preview" type="button">
+  <button (click)="returnToCreateAPost();" class="button-preview" type="button">
     Return
   </button>
-  <button class="button-publish" type="submit">
+  <button (click)="sendArticle();" class="button-publish" type="button">
     Publish
   </button>
 </div>

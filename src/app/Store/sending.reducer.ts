@@ -2,6 +2,7 @@ import {Action, createReducer, on} from '@ngrx/store';
 import {SendingActions} from "./sending.actions";
 
 export interface State {
+  formWasFilled?: boolean,
   title?: string;
   img?: any;
   subtitles?: string[];
@@ -12,6 +13,7 @@ export interface State {
 }
 
 const initialState: State = {
+  formWasFilled: false,
   title: '',
   img: '',
   subtitles: [],
@@ -33,7 +35,12 @@ export const sendingReducer = createReducer(
     author: author,
     date: date,
     tags: tags
-}))
+})),
+  on(SendingActions.returningToCreateAPost, (state) => ({
+    ...state,
+    formWasFilled: true,
+    })
+    )
 );
 
 export function reducer(state: State | undefined, action: Action) {
