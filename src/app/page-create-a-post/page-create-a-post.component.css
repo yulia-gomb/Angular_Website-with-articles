@@ -120,11 +120,9 @@ textarea{
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948; /* green */
 }
-
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
-
 
 /* upload-file style start*/
 
@@ -152,20 +150,16 @@ textarea{
   background-color: transparent;
   position: absolute;
   width: 1000px;
-
   z-index: -1;
 }
 .img-preview {
   background: center center no-repeat;
   background-size: contain;
   height: 116px;
-
 }
-
 .upload-file_icon{
   width: 20px;
   height: auto;
-
 }
 
 /* upload-file style end*/

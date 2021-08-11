@@ -23,26 +23,17 @@ class ImageSnippet {
 })
 export class PageCreateAPostComponent implements OnInit {
 
-
-  public items: any[] = [''];
-  count: number = 1;
-
   tags!: string[];
   tagsForForm: string[] = [];
 
   selectedFile: any;
   file: any;
-  imageSrc: any;
+  imageSrc?: string = "";
   showImage: boolean = false;
 
   myForm: FormGroup;
   article: any;
 
-  //collection of data for form (reactive)
-  //***author of article
-  author?: string | null = localStorage.getItem("author");
-  //***date of article
-  date: string = new Date().toLocaleDateString("en", {year: "numeric", day: "2-digit", month: "long"});
 
   //checking store for form`s data
   formWasFilled?: boolean;
@@ -82,8 +73,6 @@ export class PageCreateAPostComponent implements OnInit {
 
   }
 
-
-
   ngOnInit(): void {
 
     // getting data for page from Firebase (tags)
@@ -94,19 +83,21 @@ export class PageCreateAPostComponent implements OnInit {
     //--------filling the form with data from store
 
     if(this.formWasFilled){
+      if(this.subtitles!==undefined){
+        this.getFormsControls()['controls'].length = this.subtitles.length;
+
+      }
       this.myForm.patchValue({
         title: this.title,
-        subtitles: this.subtitles,
-        text: this.text,
+        /*subtitles: this.subtitles,
+        text: this.text,*/
 
       });
-      /*this.myForm.controls.title.setValue(this.title);*/
-      if(this.tagsForFormFromStore!==undefined){this.tagsForForm = this.tagsForFormFromStore;}
+      /*this.myForm.controls.text[](this.text[1]);*/
 
+      if(this.tagsForFormFromStore!==undefined){this.tagsForForm = this.tagsForFormFromStore;}
         this.showImage = true;
         this.imageSrc = this.imageSrcFromStore;
-
-
     }
   }
 
@@ -115,12 +106,15 @@ export class PageCreateAPostComponent implements OnInit {
 
   public addNewBlock(e: Event) {
     e.preventDefault();
-    this.items = [...this.items, this.items.length];
-    this.count++;
     (<FormArray>this.myForm.controls["subtitles"]).push(new FormControl(""));
     (<FormArray>this.myForm.controls["text"]).push(new FormControl(""));
   }
 
+  //collection of data for form (reactive)
+  //***author of article
+  author?: string | null = localStorage.getItem("author");
+  //***date of article
+  date: string = new Date().toLocaleDateString("en", {year: "numeric", day: "2-digit", month: "long"});
   //***subtitles
   getFormsControls(): FormArray {
     return this.myForm.controls['subtitles'] as FormArray;
@@ -138,9 +132,6 @@ export class PageCreateAPostComponent implements OnInit {
 
   //adding image
   //***image
-
-
-
   processFile(imageInput: any) {
     this.file = imageInput.files[0];
     const reader = new FileReader();
@@ -177,13 +168,12 @@ export class PageCreateAPostComponent implements OnInit {
     }
     //save (send) article on server
     this.firebaseService.sendArticle(this.article)
-    //send action to clear state and reset of form
+    //send action to clear state and reset form
     this.store$.dispatch(SendingActions.clearState());
-    /*this.tagsForForm = [];
+    this.tagsForForm = [];
     this.myForm.reset();
-    this.imageSrc = '';*/
-    /*this.items = [''];*/
-    window.location.reload();
+    this.imageSrc = '';
+    this.getFormsControls()['controls'].length = 1;
   }
 
   //--------------button "Preview" (sending form`s data for previewing)--------------

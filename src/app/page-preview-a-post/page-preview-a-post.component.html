@@ -7,9 +7,9 @@
 
     <article class="article">
       <h1>{{title$ | async }}</h1>
-      <div *ngFor="let subtitle of subtitles$ | async, let i = index">
+      <div *ngFor="let subtitle of subtitlesArray, let i = index">
         <h2>{{subtitle}}</h2>
-        <!--<p>{{textArray[i]}}</p>-->
+        <p>{{textArray[i]}}</p>
       </div>
     </article>
     <div class="article-subscription">

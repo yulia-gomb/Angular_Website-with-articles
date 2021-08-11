@@ -14,19 +14,21 @@ export class PagePreviewAPostComponent implements OnInit {
 
   title$: Observable<string | undefined>;
   img$: Observable<any>;
-  subtitles$: Observable<string[] | undefined>;
-  text$: Observable<string[] | undefined>;
   author$: Observable<string | undefined | null>;
   date$: Observable<string | undefined>;
   tags$: Observable<string[] | undefined>;
+  subtitlesArray: string[] = [];
+  textArray: string[] = [];
 
 
   constructor(private router: Router,
               private store$: Store) {
     this.title$ = this.store$.select(SendingSelectors.title);
     this.img$ = this.store$.select(SendingSelectors.img);
-    this.subtitles$ = this.store$.select(SendingSelectors.subtitles);
-    this.text$ = this.store$.select(SendingSelectors.text);
+    this.store$.select(SendingSelectors.subtitles).subscribe(sub =>{
+      if(sub!==undefined) {this.subtitlesArray = sub}} );
+    this.store$.select(SendingSelectors.text).subscribe(text =>{
+      if(text!==undefined) {this.textArray = text}} );
     this.author$ = this.store$.select(SendingSelectors.author);
     this.date$ = this.store$.select(SendingSelectors.date);
     this.tags$ = this.store$.select(SendingSelectors.tags);
@@ -34,6 +36,7 @@ export class PagePreviewAPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   //------------button "Publish" (sending form`s data on server)-----------
