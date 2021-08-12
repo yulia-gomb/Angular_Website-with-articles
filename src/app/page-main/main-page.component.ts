@@ -13,7 +13,7 @@ import { debounceTime, map } from 'rxjs/operators';
 export class MainPageComponent implements OnInit {
 
   data: any;
-  tags: string[] | undefined;
+  tags?: string[];
   res: any;
 
   constructor(private firebaseService: FirebaseService) {}
@@ -21,7 +21,7 @@ export class MainPageComponent implements OnInit {
   //function of filter articles by tags
 
   tagsForFilter: string[] = [];
-  activated: boolean = true;
+
 
   filterByTags(e: any) {
     let newTag = e.target.innerHTML.trim();

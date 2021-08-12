@@ -76,7 +76,6 @@ export class PageCreateAPostComponent implements OnInit {
   ngOnInit(): void {
 
     // getting data for page from Firebase (tags)
-
     this.firebaseService.getTags().subscribe(tags =>
       this.tags = tags)
 
@@ -93,12 +92,14 @@ export class PageCreateAPostComponent implements OnInit {
         text: this.text,*/
 
       });
-      /*this.myForm.controls.text[](this.text[1]);*/
+
 
       if(this.tagsForFormFromStore!==undefined){this.tagsForForm = this.tagsForFormFromStore;}
         this.showImage = true;
         this.imageSrc = this.imageSrcFromStore;
     }
+    /*this.myForm.controls.subtitles.patchValue(this.subtitles);
+    this.myForm.controls.text.patchValue(this.text);*/
   }
 
 

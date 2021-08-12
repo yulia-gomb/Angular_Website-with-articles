@@ -3,22 +3,22 @@
   <div class="wrapper">
 
 
-    <img alt="Article image" class="article-main-image" src="{{img$ | async}}"/>
+    <img alt="Article image" class="article-main-image" src="{{img}}"/>
 
     <article class="article">
-      <h1>{{title$ | async }}</h1>
+      <h1>{{title}}</h1>
       <div *ngFor="let subtitle of subtitlesArray, let i = index">
         <h2>{{subtitle}}</h2>
         <p>{{textArray[i]}}</p>
       </div>
     </article>
     <div class="article-subscription">
-      <p>{{author$ | async}}</p>
-      <p>{{date$ | async}}</p>
+      <p>{{author}}</p>
+      <p>{{date}}</p>
     </div>
     <div>
       <ul class="tags-article">
-        <li *ngFor="let tag of tags$ | async" class="tag">{{tag}}</li>
+        <li *ngFor="let tag of tags" class="tag">{{tag}}</li>
       </ul>
     </div>
   </div>
