@@ -31,13 +31,12 @@ export class MainPageComponent implements OnInit {
     } else {
       this.tagsForFilter = this.tagsForFilter.filter(item => item !== newTag);
       e.target.classList.remove('active');
-
     }
-    console.log(this.tagsForFilter);
-    /*this.firebaseService.getArticlesByTags(this.tagsForFilter).subscribe( data => {
-        this.data = Object.entries(data);
-      }
-    )*/
+    /*console.log(this.tagsForFilter);*/
+    /*this.data = this.data.filter(
+        (d: { tags: string | string[]; }[]) => d[1].tags.includes("Angular")
+    )
+    console.log(this.data);*/
 
   }
 
@@ -45,8 +44,11 @@ export class MainPageComponent implements OnInit {
 
     // getting data from Firebase
 
-    this.firebaseService.getArticles().subscribe( data =>
-    this.data = Object.entries(data))
+    this.firebaseService.getArticles().subscribe( data => {
+        this.data = Object.entries(data)
+      /*console.log(this.data)*/
+    }
+    )
 
     this.firebaseService.getTags().subscribe(tags =>
       this.tags = tags)
@@ -55,7 +57,6 @@ export class MainPageComponent implements OnInit {
 
     let searchBox: any = document.getElementById('searchInput');
     let keyup = fromEvent(searchBox, 'keyup');
-
 
     keyup.pipe(
       map((i: any) => i.currentTarget.value),

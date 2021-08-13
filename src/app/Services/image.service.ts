@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
-import {Observable} from "rxjs";
+/*import { finalize } from 'rxjs/operators';
+import {Observable} from "rxjs";*/
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
 
-  uploadPercent: Observable<any> | undefined;
-  downloadURL: Observable<string> | undefined;
+  /*uploadPercent: Observable<any> | undefined;
+  downloadURL: Observable<string> | undefined;*/
 
   /*profileUrl: Observable<string | null> | undefined;*/
 

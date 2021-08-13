@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   constructor(public auth: AngularFireAuth,
               private router: Router) { }
 
-  logOut() {
+  logOut(): void {
     this.auth.signOut().then( () => {
       delete localStorage.authorized;
       delete localStorage.avatar;

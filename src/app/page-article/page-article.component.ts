@@ -14,7 +14,6 @@ export class PageArticleComponent implements OnInit {
   data: any;
   textArray: string[] = [];
 
-
   constructor(private activateRoute: ActivatedRoute,
               private firebaseService: FirebaseService) {
     this.id = activateRoute.snapshot.params['id'];
@@ -23,12 +22,10 @@ export class PageArticleComponent implements OnInit {
   ngOnInit(): void {
 
     // getting data from Firebase
-
     this.firebaseService.getArticles().subscribe( data =>{
-        this.data = data[this.id],
-          this.textArray = data[this.id].text
+        this.data = data[this.id];
+        this.textArray = data[this.id].text
     })
-
   }
 
 }

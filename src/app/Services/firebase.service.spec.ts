@@ -10,7 +10,7 @@ describe('FirebaseService', () => {
     service = TestBed.inject(FirebaseService);
   });
 
-  it('should be created', () => {
+  /*it('should be created', () => {
     expect(service).toBeTruthy();
-  });
+  });*/
 });

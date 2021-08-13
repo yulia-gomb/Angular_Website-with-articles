@@ -36,12 +36,4 @@ export class FirebaseService {
       return this.filteredArticles;
   }
 
-  /*getArticlesByTags(tags: any) {
-    this.filteredArticles = this.db.list('articles', ref =>
-      ref.where('tags','array-contains-any', tags))
-      .valueChanges();
-    return this.filteredArticles;
-  }*/
-
-
 }
