@@ -22,4 +22,11 @@ describe('FooterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should contain area with copyright', () => {
+    const divEl: HTMLElement = fixture.nativeElement;
+    const area = divEl.querySelector('p')!;
+    expect(area.textContent).toContain('All Rights Reserved');
+  });
+
 });

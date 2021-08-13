@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../../../environments/environment";
+import {AppRoutingModule} from "../../app-routing.module";
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,6 +11,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AppRoutingModule,
+      ],
       declarations: [ HeaderComponent ]
     })
     .compileComponents();
@@ -19,7 +26,7 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  /*it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
-  });*/
+  });
 });
