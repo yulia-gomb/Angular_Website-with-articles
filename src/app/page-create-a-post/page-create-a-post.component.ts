@@ -8,7 +8,7 @@ import {SendingActions} from "../Store/sending.actions";
 import {SendingSelectors} from "../Store/sending.selectors";
 
 
-class ImageSnippet {
+export class ImageSnippet {
   pending: boolean = false;
   status: string = 'init';
   constructor(public src: string, public file: File) {}
@@ -125,9 +125,9 @@ export class PageCreateAPostComponent implements OnInit {
   addTags(e: any) {
     let newTag = e.target.innerHTML.trim();
     if (!this.tagsForForm.includes(newTag)) {
-      this.tagsForForm.push(newTag)
+      return this.tagsForForm.push(newTag)
     } else {
-      this.tagsForForm = this.tagsForForm.filter(item => item !== newTag);
+      return this.tagsForForm = this.tagsForForm.filter(item => item !== newTag);
     }
   }
 
