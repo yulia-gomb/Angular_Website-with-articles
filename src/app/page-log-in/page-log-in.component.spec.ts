@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageLogInComponent } from './page-log-in.component';
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../../environments/environment";
+import {AppRoutingModule} from "../app-routing.module";
 
 describe('PageLogInComponent', () => {
   let component: PageLogInComponent;
@@ -8,6 +11,10 @@ describe('PageLogInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AppRoutingModule,
+        ],
       declarations: [ PageLogInComponent ]
     })
     .compileComponents();
@@ -19,7 +26,7 @@ describe('PageLogInComponent', () => {
     fixture.detectChanges();
   });
 
-  /*it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
-  });*/
+  });
 });

@@ -53,7 +53,6 @@ export class PagePreviewAPostComponent implements OnInit {
 
   sendArticle(){
 
-    console.log("Publish")
     //data from Form
     this.article = {
       img: this.img,

@@ -11,7 +11,15 @@ import { FirebaseService} from "../Services/firebase.service";
 export class PageArticleComponent implements OnInit {
 
   id: number;
-  data: any;
+  data = {
+    img: "",
+    title: "",
+    subtitles: [],
+    text: [],
+    author: "",
+    date: "",
+    tags: [],
+  }
   textArray: string[] = [];
 
   constructor(private activateRoute: ActivatedRoute,
@@ -24,8 +32,8 @@ export class PageArticleComponent implements OnInit {
     // getting data from Firebase
     this.firebaseService.getArticles().subscribe( data =>{
         this.data = data[this.id];
-        this.textArray = data[this.id].text
-    })
+        this.textArray = data[this.id].text;
+        })
   }
 
 }

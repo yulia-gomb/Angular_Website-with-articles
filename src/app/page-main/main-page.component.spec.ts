@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../../environments/environment";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AppRoutingModule} from "../app-routing.module";
+import {FooterComponent} from "../Common/footer/footer.component";
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -8,7 +13,15 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainPageComponent ]
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+        AppRoutingModule
+      ],
+      declarations: [
+        MainPageComponent,
+        FooterComponent
+      ]
     })
     .compileComponents();
   });
@@ -19,7 +32,7 @@ describe('MainPageComponent', () => {
     fixture.detectChanges();
   });
 
-  /*it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
-  });*/
+  });
 });
