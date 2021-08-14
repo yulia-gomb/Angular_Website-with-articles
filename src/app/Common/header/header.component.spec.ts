@@ -1,9 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../../../environments/environment";
 import {AppRoutingModule} from "../../app-routing.module";
+
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -29,4 +30,7 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+
 });

@@ -1,13 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../../environments/environment";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {AppRoutingModule} from "../app-routing.module";
-import {FooterComponent} from "../Common/footer/footer.component";
 import {FirebaseService} from "../Services/firebase.service";
 import {EMPTY, of} from "rxjs";
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -21,13 +22,9 @@ describe('MainPageComponent', () => {
         AngularFireDatabaseModule,
         AppRoutingModule
       ],
-      declarations: [
-        MainPageComponent,
-        FooterComponent
-      ],
-      providers: [
-        FirebaseService
-      ]
+      declarations: [ MainPageComponent ],
+      providers: [ FirebaseService ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -38,8 +35,8 @@ describe('MainPageComponent', () => {
     fixture.detectChanges();
 
 
-    service = TestBed.inject(FirebaseService)
-    component = new MainPageComponent(service)
+    service = TestBed.inject(FirebaseService);
+    component = new MainPageComponent(service);
 
   });
 
@@ -69,6 +66,18 @@ describe('MainPageComponent', () => {
     component.ngOnInit()
     expect(spy).toHaveBeenCalled();
   });
+
+  /*it('should call Firebase method getArticlesBySearch() when the component initializes', () => {
+    const spy = spyOn(service, 'getArticlesBySearch').and.callFake( () => {
+      return EMPTY;
+    })
+    component.ngOnInit()
+    expect(spy).toHaveBeenCalled();
+  });*/
+
+
+
+
 
 
 });

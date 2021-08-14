@@ -109,7 +109,7 @@ export class PageCreateAPostComponent implements OnInit {
 
   //button "Add new block"
 
-  public addNewBlock(e: Event) {
+  addNewBlock(e: Event) {
     e.preventDefault();
     (<FormArray>this.myForm.controls["subtitles"]).push(new FormControl(""));
     (<FormArray>this.myForm.controls["text"]).push(new FormControl(""));

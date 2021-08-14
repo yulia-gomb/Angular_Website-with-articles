@@ -23,7 +23,7 @@ export class MainPageComponent implements OnInit {
   tagsForFilter: string[] = [];
 
 
-  filterByTags(e: any): void {
+  filterByTags(e: any) {
     let newTag = e.target.innerHTML.trim();
     if(!this.tagsForFilter.includes(newTag)){
       this.tagsForFilter.push(newTag);

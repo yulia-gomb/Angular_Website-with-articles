@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ImageSnippet, PageCreateAPostComponent} from './page-create-a-post.component';
 import {FirebaseService} from "../Services/firebase.service";
@@ -11,8 +11,10 @@ import * as fromReducer from "../Store/sending.reducer";
 import {AngularFireStorageModule} from "@angular/fire/storage";
 import {AppRoutingModule} from "../app-routing.module";
 import {AbstractControl, ReactiveFormsModule} from "@angular/forms";
-import {HeaderComponent} from "../Common/header/header.component";
-import {FooterComponent} from "../Common/footer/footer.component";
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {By} from "@angular/platform-browser";
+
+
 
 describe('PageCreateAPostComponent', () => {
   let component: PageCreateAPostComponent;
@@ -33,14 +35,13 @@ describe('PageCreateAPostComponent', () => {
         ReactiveFormsModule
       ],
       declarations: [
-        PageCreateAPostComponent,
-        HeaderComponent,
-        FooterComponent
+        PageCreateAPostComponent
       ],
       providers: [
         FirebaseService,
         ImageService
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -49,9 +50,11 @@ describe('PageCreateAPostComponent', () => {
     fixture = TestBed.createComponent(PageCreateAPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     serviceFB = TestBed.inject(FirebaseService);
     serviceImgFB = TestBed.inject(ImageService);
     control = component.myForm.get('title');
+
   });
 
   it('should create Create-a-post Component', () => {
@@ -86,7 +89,18 @@ describe('PageCreateAPostComponent', () => {
     const buttonEl: HTMLButtonElement = fixture.nativeElement;
     const button = buttonEl.querySelector('button')!;
     expect(button.textContent).toContain('Add');
-  })
+  });
+
+  it('Button "Add new block" should call function addNewBlock()', fakeAsync(() => {
+    spyOn(component, 'addNewBlock');
+    let button = fixture.debugElement.query(By.css('button'));
+    button.nativeElement.click();
+    tick();
+    expect(component.addNewBlock).toHaveBeenCalled();
+  }));
+
+
+
 
 });
 

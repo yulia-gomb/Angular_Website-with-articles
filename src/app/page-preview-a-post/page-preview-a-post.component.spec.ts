@@ -9,6 +9,7 @@ import {StoreModule} from "@ngrx/store";
 import * as fromReducer from "../Store/sending.reducer";
 import {AppRoutingModule} from "../app-routing.module";
 import {FirebaseService} from "../Services/firebase.service";
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 
 
 
@@ -28,7 +29,8 @@ describe('PagePreviewAPostComponent', () => {
       declarations: [ PagePreviewAPostComponent ],
       providers: [
         FirebaseService
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });

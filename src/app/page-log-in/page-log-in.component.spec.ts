@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { PageLogInComponent } from './page-log-in.component';
 import {AngularFireModule, FirebaseApp} from "@angular/fire";
@@ -7,6 +7,8 @@ import {AppRoutingModule} from "../app-routing.module";
 import {AngularFireAuth} from "@angular/fire/auth";
 import firebase from "firebase";
 import {Observable, Subject} from "rxjs";
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {By} from "@angular/platform-browser";
 
 const firebaseUser = {
   uid: '12345',
@@ -30,7 +32,10 @@ describe('PageLogInComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AppRoutingModule,
         ],
-      declarations: [ PageLogInComponent ]
+      declarations: [
+        PageLogInComponent
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -111,7 +116,19 @@ describe('PageLogInComponent', () => {
     mockAuthState.next(null);
   });
 
+  it('should contain button "Sign In with Google"', () => {
+    const buttonEl: HTMLButtonElement = fixture.nativeElement;
+    const button = buttonEl.querySelector('button')!;
+    expect(button.textContent).toContain('Sign');
+  });
 
+  it('checkbox should call function checkStatus() to make able button Sign-In', fakeAsync(() => {
+    spyOn(component, 'checkStatus');
+    let button = fixture.debugElement.query(By.css('input'));
+    button.nativeElement.click();
+    tick();
+    expect(component.checkStatus).toHaveBeenCalled();
+  }));
 
 
 });

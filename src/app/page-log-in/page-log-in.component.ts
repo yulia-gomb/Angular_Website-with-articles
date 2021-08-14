@@ -29,7 +29,7 @@ export class PageLogInComponent implements OnInit {
 
       //checking of "google terms" to activate button "sign In"
 
-      public checkStatus() {
+      checkStatus() {
           this.buttonSignInAble = !this.buttonSignInAble;
       }
 
