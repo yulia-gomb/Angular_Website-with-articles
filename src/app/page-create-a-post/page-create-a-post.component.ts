@@ -88,18 +88,22 @@ export class PageCreateAPostComponent implements OnInit {
       }
       this.myForm.patchValue({
         title: this.title,
-        /*subtitles: this.subtitles,
-        text: this.text,*/
+        subtitles: this.subtitles,
+        text: this.text,
 
       });
+
+
 
 
       if(this.tagsForFormFromStore!==undefined){this.tagsForForm = this.tagsForFormFromStore;}
         this.showImage = true;
         this.imageSrc = this.imageSrcFromStore;
+
+      /*this.myForm.controls.subtitles.setValue(this.subtitles);
+      this.myForm.controls.text.setValue(this.text);*/
     }
-    /*this.myForm.controls.subtitles.patchValue(this.subtitles);
-    this.myForm.controls.text.patchValue(this.text);*/
+
   }
 
 
@@ -180,6 +184,7 @@ export class PageCreateAPostComponent implements OnInit {
   //--------------button "Preview" (sending form`s data for previewing)--------------
 
     previewArticle() {
+      console.log(this.myForm.controls);
       this.store$.dispatch(SendingActions.sendingFormDataForPreview({
         title: this.myForm.controls.title.value,
         img: this.imageSrc,

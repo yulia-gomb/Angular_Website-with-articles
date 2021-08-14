@@ -96,5 +96,6 @@ describe('ImageSnippet Class', () => {
 
   it('should create ImageSnippet Class', () => {
     expect(imageClass).toBeTruthy();
-  })
+  });
+
 })

@@ -23,7 +23,7 @@ export class MainPageComponent implements OnInit {
   tagsForFilter: string[] = [];
 
 
-  filterByTags(e: any) {
+  filterByTags(e: any): void {
     let newTag = e.target.innerHTML.trim();
     if(!this.tagsForFilter.includes(newTag)){
       this.tagsForFilter.push(newTag);
@@ -43,18 +43,15 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
 
     // getting data from Firebase
-
     this.firebaseService.getArticles().subscribe( data => {
         this.data = Object.entries(data)
       /*console.log(this.data)*/
-    }
-    )
+    });
 
     this.firebaseService.getTags().subscribe(tags =>
-      this.tags = tags)
+      this.tags = tags);
 
     //function of filter articles by search input
-
     let searchBox: any = document.getElementById('searchInput');
     let keyup = fromEvent(searchBox, 'keyup');
 
@@ -65,8 +62,7 @@ export class MainPageComponent implements OnInit {
         this.res = res;
         this.firebaseService.getArticlesBySearch(this.res).subscribe( data => {
             this.data = Object.entries(data);
-            }
-        )
+            })
       });
 
   }

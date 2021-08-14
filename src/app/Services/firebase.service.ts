@@ -10,7 +10,7 @@ export class FirebaseService {
 
   items: Observable<any>;
   tags: Observable<any>;
-  filteredArticles: Observable<any> | undefined;
+  filteredArticles!: Observable<any>;
 
 
   constructor(private db: AngularFireDatabase) {
