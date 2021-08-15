@@ -9,8 +9,6 @@ export class ImageService {
   constructor(private storage: AngularFireStorage) { }
 
   public uploadImage(file: any, name: string): any {
-
      this.storage.upload(name, file);
-
   }
  }

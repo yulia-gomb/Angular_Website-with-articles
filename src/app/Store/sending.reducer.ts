@@ -52,7 +52,6 @@ export const sendingReducer = createReducer(
     date: '',
     tags: [],
     })
-
   )
 );
 

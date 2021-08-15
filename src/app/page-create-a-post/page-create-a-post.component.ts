@@ -84,39 +84,28 @@ export class PageCreateAPostComponent implements OnInit {
     if(this.formWasFilled){
       if(this.subtitles!==undefined){
         this.getFormsControls()['controls'].length = this.subtitles.length;
-
       }
       this.myForm.patchValue({
         title: this.title,
         subtitles: this.subtitles,
         text: this.text,
-
       });
-
-
-
 
       if(this.tagsForFormFromStore!==undefined){this.tagsForForm = this.tagsForFormFromStore;}
         this.showImage = true;
         this.imageSrc = this.imageSrcFromStore;
-
-      /*this.myForm.controls.subtitles.setValue(this.subtitles);
-      this.myForm.controls.text.setValue(this.text);*/
     }
 
   }
   //button "Remove Cover"
   removeCover(){
-    console.log('remove');
     let input = document.querySelector(".input-image")!;
     input.nodeValue = '';
     this.showImage = false;
     this.imageSrc = '';
   }
 
-
   //button "Add new block"
-
   addNewBlock(e: Event) {
     e.preventDefault();
     (<FormArray>this.myForm.controls["subtitles"]).push(new FormControl(""));
@@ -192,8 +181,7 @@ export class PageCreateAPostComponent implements OnInit {
   //--------------button "Preview" (sending form`s data for previewing)--------------
 
     previewArticle() {
-      console.log(this.myForm.controls);
-      this.store$.dispatch(SendingActions.sendingFormDataForPreview({
+         this.store$.dispatch(SendingActions.sendingFormDataForPreview({
         title: this.myForm.controls.title.value,
         img: this.imageSrc,
         subtitles: this.myForm.controls.subtitles.value,

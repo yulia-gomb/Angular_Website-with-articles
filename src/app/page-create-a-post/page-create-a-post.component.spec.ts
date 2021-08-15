@@ -99,9 +99,6 @@ describe('PageCreateAPostComponent', () => {
     expect(component.addNewBlock).toHaveBeenCalled();
   }));
 
-
-
-
 });
 
 describe('ImageSnippet Class', () => {

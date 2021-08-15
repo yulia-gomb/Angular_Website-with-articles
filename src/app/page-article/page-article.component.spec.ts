@@ -6,10 +6,7 @@ import {environment} from "../../environments/environment";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {AppRoutingModule} from "../app-routing.module";
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {EMPTY} from "rxjs";
 import {FirebaseService} from "../Services/firebase.service";
-import {MainPageComponent} from "../page-main/main-page.component";
-
 
 
 describe('PageArticleComponent', () => {

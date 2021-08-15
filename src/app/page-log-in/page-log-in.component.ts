@@ -20,7 +20,6 @@ export class PageLogInComponent implements OnInit {
             localStorage.setItem('avatar', result.additionalUserInfo.profile.picture);
             localStorage.setItem('author', result.additionalUserInfo.profile.name);
             window.location.href="../../index.html";
-
           }).catch(function (err) {
             console.log("error")
             console.log(err)
@@ -28,11 +27,9 @@ export class PageLogInComponent implements OnInit {
         }
 
       //checking of "google terms" to activate button "sign In"
-
       checkStatus() {
           this.buttonSignInAble = !this.buttonSignInAble;
       }
-
 
   ngOnInit(): void {
   }

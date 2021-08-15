@@ -12,7 +12,6 @@ export class FirebaseService {
   tags: Observable<any>;
   filteredArticles!: Observable<any>;
 
-
   constructor(private db: AngularFireDatabase) {
     this.tags = db.list('tags').valueChanges();
   }

@@ -67,17 +67,4 @@ describe('MainPageComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  /*it('should call Firebase method getArticlesBySearch() when the component initializes', () => {
-    const spy = spyOn(service, 'getArticlesBySearch').and.callFake( () => {
-      return EMPTY;
-    })
-    component.ngOnInit()
-    expect(spy).toHaveBeenCalled();
-  });*/
-
-
-
-
-
-
 });
