@@ -18,7 +18,9 @@
           <div class="img-preview"
                [ngStyle]="{'background-image': 'url('+ imageSrc + ')'}">
           </div>
-          <!--<div *ngIf="showImage"></div>-->
+          <div class="delete-cover-button" (click)="removeCover();">
+            - Remove Cover
+          </div>
         </div>
        </div>
 

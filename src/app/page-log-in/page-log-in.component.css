@@ -1,12 +1,16 @@
 .page-log-in{
   margin-top: 80px;
+  min-height: calc(100vh - 80px);
+  margin-bottom: -80px;
 }
+
+
 .page-log-in h1{
   font-weight: bold;
   font-size: 60px;
   letter-spacing: -0.01em;
   color: #333333;
-  padding-top: 180px;
+  padding-top: 20vh;
   text-align: center;
 }
 #sign-in-google{
@@ -25,6 +29,5 @@
   text-align: center;
 }
 .agree-area{
-  margin-bottom: 240px;
   text-align: center;
 }

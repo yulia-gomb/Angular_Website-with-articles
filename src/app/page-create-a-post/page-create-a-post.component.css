@@ -149,13 +149,18 @@ textarea{
 .img-preview-container {
   background-color: transparent;
   position: absolute;
-  width: 1000px;
-  z-index: -1;
+}
+.delete-cover-button{
+  color: #2F80ED;
+  cursor: pointer;
 }
 .img-preview {
   background: center center no-repeat;
   background-size: contain;
   height: 116px;
+  width: 1000px;
+  position: absolute;
+  z-index: -1;
 }
 .upload-file_icon{
   width: 20px;

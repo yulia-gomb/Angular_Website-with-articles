@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {Router} from "@angular/router";
+import { NavigationEnd, Router} from "@angular/router";
 
 
 @Component({
@@ -14,12 +14,14 @@ export class HeaderComponent implements OnInit {
   showButtonSignIn!: boolean;
   showButtonLogOut!: boolean;
   showAvatar!: boolean;
-
-  avatarImg: string | undefined;
+  avatarImg?: string;
+  currentURL?: string;
 
   constructor(public auth: AngularFireAuth,
-              private router: Router) { }
+              private router: Router) {}
 
+
+  //logOut function
   logOut(): void {
     this.auth.signOut().then( () => {
       delete localStorage.authorized;
@@ -32,28 +34,37 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/']).then();
 
     }).catch(function (err) {
-      console.log("error")
-      console.log(err)
+       console.log(err)
     });
   }
 
   ngOnInit(): void {
-    this.avatarImg = localStorage.avatar;
-    if(localStorage.getItem('authorized')){
-      this.showButtonSignIn = false;
-      this.showButtonCreateAPost = true;
-      this.showButtonLogOut = true;
-      this.showAvatar = true;
-    }
-    else{
-      this.showButtonCreateAPost = false;
-      this.showButtonSignIn = true;
-      this.showButtonLogOut = false;
-      this.showAvatar = false;
-    }
 
+    //checking status of authorizing to set buttons of header
+
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.currentURL = ev.url;
+
+        if(localStorage.getItem('authorized')){
+          if(this.currentURL==="/create-a-post" || this.currentURL==="/preview-a-post"){
+            this.showButtonCreateAPost = false;
+          } else {
+            this.showButtonCreateAPost = true;
+          }
+          this.showButtonSignIn = false;
+          this.showButtonLogOut = true;
+          this.showAvatar = true;
+          this.avatarImg = localStorage.avatar;
+        }
+        else{
+          this.showButtonCreateAPost = false;
+          this.showButtonSignIn = true;
+          this.showButtonLogOut = false;
+          this.showAvatar = false;
+        }
+
+      }
+    });
   }
-
-
-
 }

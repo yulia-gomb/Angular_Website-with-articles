@@ -105,6 +105,14 @@ export class PageCreateAPostComponent implements OnInit {
     }
 
   }
+  //button "Remove Cover"
+  removeCover(){
+    console.log('remove');
+    let input = document.querySelector(".input-image")!;
+    input.nodeValue = '';
+    this.showImage = false;
+    this.imageSrc = '';
+  }
 
 
   //button "Add new block"

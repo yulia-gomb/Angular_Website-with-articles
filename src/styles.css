@@ -76,15 +76,12 @@ nav, footer, header, aside {
 }
 
 html, body {
-  height: 100%;
   width: 100%;
   font-size: 100%;
   line-height: 1;
-
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-
 }
 
 input, button, textarea {
@@ -137,8 +134,8 @@ body{
 .wrapper{
   max-width: 1152px;
   margin: 0 auto;
-
-}
+  min-height: 100%;
+  }
 .tag{
   text-align: center;
   letter-spacing: 0.0168em;
