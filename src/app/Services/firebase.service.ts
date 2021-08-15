@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import {map} from "rxjs/operators";
 
 
 @Injectable({
@@ -8,18 +9,16 @@ import { Observable } from 'rxjs';
 })
 export class FirebaseService {
 
-  items: Observable<any>;
   tags: Observable<any>;
   filteredArticles!: Observable<any>;
 
 
   constructor(private db: AngularFireDatabase) {
-    this.items = db.object('articles').valueChanges();
     this.tags = db.list('tags').valueChanges();
   }
 
   getArticles() {
-    return this.items
+    return this.db.object('articles').valueChanges();
   }
 
   getTags() {
@@ -34,6 +33,14 @@ export class FirebaseService {
     this.filteredArticles = this.db.list('articles', ref =>
       ref.orderByChild('title').startAt(res).endAt(res+ "\uf8ff")).valueChanges()
       return this.filteredArticles;
+  }
+
+  getArticlesByTags(tagsForFilter: string[]) {
+    return this.db.list('articles').valueChanges().pipe(
+      map((articles: any) => articles
+        .filter((article: any) => article.tags
+            .filter((tag: string) => tagsForFilter.includes(tag)).length > 0 ))
+    )
   }
 
 }

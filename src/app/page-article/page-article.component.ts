@@ -30,7 +30,7 @@ export class PageArticleComponent implements OnInit {
   ngOnInit(): void {
 
     // getting data from Firebase
-    this.firebaseService.getArticles().subscribe( data =>{
+    this.firebaseService.getArticles().subscribe( (data: any) =>{
         this.data = data[this.id];
         this.textArray = data[this.id].text;
         })

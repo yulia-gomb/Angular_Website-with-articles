@@ -130,5 +130,13 @@ describe('PageLogInComponent', () => {
     expect(component.checkStatus).toHaveBeenCalled();
   }));
 
+  xit('button "Sign In with Google" should call function logIn()', fakeAsync(() => {
+    spyOn(component, 'logIn');
+    let button = fixture.debugElement.query(By.css('#sign-in-google'));
+    button.nativeElement.click();
+    tick();
+    expect(component.logIn).toHaveBeenCalled();
+  }));
+
 
 });

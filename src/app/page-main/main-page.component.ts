@@ -21,9 +21,10 @@ export class MainPageComponent implements OnInit {
   //function of filter articles by tags
 
   tagsForFilter: string[] = [];
-
+  result: any;
 
   filterByTags(e: any) {
+
     let newTag = e.target.innerHTML.trim();
     if(!this.tagsForFilter.includes(newTag)){
       this.tagsForFilter.push(newTag);
@@ -32,22 +33,26 @@ export class MainPageComponent implements OnInit {
       this.tagsForFilter = this.tagsForFilter.filter(item => item !== newTag);
       e.target.classList.remove('active');
     }
-    /*console.log(this.tagsForFilter);*/
-    /*this.data = this.data.filter(
-        (d: { tags: string | string[]; }[]) => d[1].tags.includes("Angular")
-    )
-    console.log(this.data);*/
+
+    if(this.tagsForFilter.length>0){
+      this.firebaseService.getArticlesByTags(this.tagsForFilter).subscribe( data => {
+        this.data = Object.entries(data);
+        });
+    } else {
+       this.firebaseService.getArticles().subscribe( (data: any) => {
+        this.data = Object.entries(data)
+      });
+    }
 
   }
 
   ngOnInit(): void {
 
-    // getting data from Firebase
-    this.firebaseService.getArticles().subscribe( data => {
+    // getting articles from Firebase
+    this.firebaseService.getArticles().subscribe( (data: any) => {
         this.data = Object.entries(data)
-      /*console.log(this.data)*/
     });
-
+    // getting tags from Firebase
     this.firebaseService.getTags().subscribe(tags =>
       this.tags = tags);
 
